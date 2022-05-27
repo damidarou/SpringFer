@@ -59,10 +59,10 @@ public class TestDAOImpl implements TestDAO{
         String f3 = "nombre like '"+test.getNombre()+"'";
         String f4 = "objetivo like '"+test.getObjetivo()+"'";
         String f5 = "estado like '"+test.getEstado()+"'";
-        String f6 = "cod_caso_uso="+test.getCod_caso_uso();
+        String f6 = "cod_caso_uso="+test.getId_caso_uso();
         String f7 = "cod_usuario="+test.getCod_usuario();
 
-        if (test.getCod_test()==0&&test.getCod_usuario()==0&&test.getCod_caso_uso()==0&&test.getNombre()==null&&test.getEstado()==null&&test.getObjetivo()==null){
+        if (test.getCod_test()==0&&test.getCod_usuario()==0&&test.getId_caso_uso()==0&&test.getNombre()==null&&test.getEstado()==null&&test.getObjetivo()==null){
             f1="select t from Test t";
         }
 
@@ -90,7 +90,7 @@ public class TestDAOImpl implements TestDAO{
                 f1 = f1 +" and "+f5;
             }
         }
-        if(test.getCod_caso_uso()!=0){
+        if(test.getId_caso_uso()!=0){
             if(f1.contentEquals("select t from Test t where ")){
                 f1 = f1+f6;
             } else {

@@ -4,14 +4,11 @@ import org.hibernate.annotations.ForeignKey;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import javax.persistence.*;
 
 
 @Entity
@@ -19,9 +16,9 @@ import javax.persistence.Table;
 
 public class Test {
 
-//Crea las columnas de la tabla test, indicando el tipo de valor que van a almacenar
+    //Crea las columnas de la tabla test, indicando el tipo de valor que van a almacenar
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="cod_test")
     private int cod_test;
 
@@ -32,23 +29,31 @@ public class Test {
     private String objetivo;
 
     @Column(name="estado")
-    private String estado;
+    private estado estado;
 //ESTADO es un enum, solo admite los valores (PASSED, FAILED, BLOCKED, UNTESTED)
 
-    @Column(name="cod_caso_uso")
-    private int cod_caso_uso;
+    @Column(name="id_caso_uso")
+    private int id_caso_uso;
 
     @Column(name="cod_usuario")
     private int cod_usuario;
 
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_caso_uso", referencedColumnName = "cod_caso_uso", insertable=false, updatable=false)
+    private Caso_uso caso_uso;
+
+//    @OneToMany(cascade = CascadeType.ALL)
+//    Set<Caso_uso> casos_uso = new HashSet<>();
+
     public Test(){}
 
     //Constructor de Test usando como parametros todas las columnas creadas
-    public Test(int cod_test, String nombre, String objetivo, int cod_caso_uso, int cod_usuario, String estado) {
+    public Test(int cod_test, String nombre, String objetivo, int id_caso_uso, int cod_usuario, estado estado) {
         this.cod_test = cod_test;
         this.nombre = nombre;
         this.objetivo = objetivo;
-        this.cod_caso_uso = cod_caso_uso;
+        this.id_caso_uso = id_caso_uso;
         this.cod_usuario = cod_usuario;
         this.estado = estado;
     }
@@ -76,20 +81,20 @@ public class Test {
         this.objetivo = objetivo;
     }
 
-    public String getEstado() {
+    public estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(estado estado) {
         this.estado = estado;
     }
 
-    public int getCod_caso_uso() {
-        return cod_caso_uso;
+    public int getId_caso_uso() {
+        return id_caso_uso;
     }
 
-    public void setCod_caso_uso(int cod_caso_uso) {
-        this.cod_caso_uso = cod_caso_uso;
+    public void setId_caso_uso(int id_caso_uso) {
+        this.id_caso_uso = id_caso_uso;
     }
 
     public int getCod_usuario() {
@@ -100,6 +105,7 @@ public class Test {
         this.cod_usuario = cod_usuario;
     }
 
+    public Caso_uso getCaso_uso(){return  caso_uso;}
     @Override
     public String toString() {
         return "Test{" +
@@ -107,7 +113,7 @@ public class Test {
                 ", nombre='" + nombre + '\'' +
                 ", objetivo='" + objetivo + '\'' +
                 ", estado='" + estado + '\'' +
-                ", cod_caso_uso=" + cod_caso_uso +
+                ", cod_caso_uso=" + id_caso_uso +
                 ", cod_usuario=" + cod_usuario +
                 '}';
     }
