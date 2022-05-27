@@ -38,13 +38,17 @@ public class Test {
     @Column(name="cod_usuario")
     private int cod_usuario;
 
-
+/*
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_caso_uso", referencedColumnName = "cod_caso_uso", insertable=false, updatable=false)
     private Caso_uso caso_uso;
+ */
 
-//    @OneToMany(cascade = CascadeType.ALL)
-//    Set<Caso_uso> casos_uso = new HashSet<>();
+   // private Proyecto proyecto;
+
+   @ManyToOne
+   @JoinColumn(name = "fk_cod_caso_uso")
+   private Caso_uso caso_Uso;
 
     public Test(){}
 
@@ -105,7 +109,7 @@ public class Test {
         this.cod_usuario = cod_usuario;
     }
 
-    public Caso_uso getCaso_uso(){return  caso_uso;}
+    public int getCaso_uso(){return  id_caso_uso;}
     @Override
     public String toString() {
         return "Test{" +
@@ -117,4 +121,6 @@ public class Test {
                 ", cod_usuario=" + cod_usuario +
                 '}';
     }
+
+
 }

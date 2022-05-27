@@ -20,10 +20,13 @@ import com.nigmacode.apirest.entity.Test;
 import com.nigmacode.apirest.service.TestService;
 import com.nigmacode.apirest.entity.Caso_uso;
 import com.nigmacode.apirest.service.CasoService;
+import com.nigmacode.apirest.service.ProyectoService;
+import com.nigmacode.apirest.entity.Proyecto;
 
 //Indiciamos que es un controlador rest
 @RestController
 @RequestMapping("/api") //esta sera la raiz de la url, es decir http://127.0.0.1:8080/api/
+
 
 public class TestRestController {
 
@@ -76,7 +79,7 @@ public class TestRestController {
         Test user = testService.findById(userId);
 
         if(user == null) {
-            throw new RuntimeException("User id not found -"+userId);
+            throw new RuntimeException("Test id not found -"+userId);
         }
         //retornará al usuario con id pasado en la url
         return user;
@@ -110,7 +113,7 @@ public class TestRestController {
     /*Este método se hará cuando por una petición DELETE (como indica la anotación) se llame a la url + id del usuario
     http://127.0.0.1:8080/api/users/1  */
 
-    @DeleteMapping("test/{userId}")
+    @DeleteMapping("/test/{userId}")
     public String deleteTest(@PathVariable int userId) {
 
         Test test = testService.findById(userId);
@@ -122,7 +125,7 @@ public class TestRestController {
         testService.deleteById(userId);
 
         //Esto método, recibira el id de un usuario por URL y se borrará de la bd.
-        return "Deleted user id - "+userId;
+        return "Deleted test id - "+userId;
     }
 
     // TODOS LOS METODOS PARA LAS OPERACIONES DE CASOS DE USO
@@ -185,17 +188,17 @@ public class TestRestController {
     /*Este método ser hará cuando por una petición GET(como indica la anotacion)
     se llame a la url http://127.0.0.1:8080/api/users/1
     */
-    @DeleteMapping("caso/{userId}")
+    @DeleteMapping("/caso/{userId}")
     public String deleteCaso(@PathVariable int userId){
         Caso_uso caso = casoService.findById(userId);
 
         if (caso==null){
-            throw new RuntimeException("User id not found -"+userId);
+            throw new RuntimeException("Case id not found -"+userId);
         }
         testService.deleteById(userId);
 
         //Este método, recibirá el ide de un usuario por URL y se borrará de la bd.
-        return "Delete user id -"+userId;
+        return "Delete case id -"+userId;
     }
     /*
     @GetMapping("caso/{nombre_caso_uso}")
@@ -206,14 +209,95 @@ public class TestRestController {
             throw new RuntimeException("Nombre caso de uso not found -"+nombre_caso_uso);
         }
 
-        //Este método, recibirá el ide de un usuario por URL y se borrará de la bd.
+        Este método, recibirá el ide de un usuario por URL y se borrará de la bd.
         return caso;
     }
 */
     @GetMapping("/casos/parameters")
-    public List<Caso_uso> getByJSONCasoUso(@RequestBody Caso_uso caso){
-        return casoService.findByJSON(caso);
+    public List<Caso_uso> getByJSONCasoUso(@RequestBody Caso_uso caso) {
+        List<Caso_uso> list = casoService.findByJSON(caso);
+        for (Caso_uso t : list) {
+            t.toString();
+        }
+        if(list.isEmpty()){
+            throw new RuntimeException("Case not found");
+        }
+        return list;
     }
 
+    //TODOS LOS METODOS PARA LAS OPERACIONES DE PROYECTO
 
+    @Autowired
+    private ProyectoService proyectoService;
+
+    /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url
+    http://127.0.0.1:8080/Prueba/proyecto*/
+    @GetMapping("/proyecto")
+    public List<Proyecto> findAllProyecto(){
+        //retornará todos los usuarios
+        return proyectoService.findAll();
+    }
+
+    /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url + el id de un usuario
+    http://127.0.0.1:8080/api/Prueba/1*/
+    @GetMapping("/proyecto/{proyectId}")
+    public Proyecto getProyecto(@PathVariable int proyectId){
+        Proyecto proyecto = proyectoService.findById(proyectId);
+        if (proyecto == null) {
+            throw new RuntimeException("Project not fount-" + proyectId);
+        }
+        //retornará al usuario con id pasado en la url
+        return proyecto;
+    }
+
+    /*Este método se hará cuando por una petición POST (como indica la anotación) se llame a la url
+    http://127.0.0.1:8080/Prueba/proyecto/  */
+    @PostMapping("/proyecto")
+    public Proyecto addUser(@RequestBody Proyecto proyecto) {
+        // user.setCod_usuario(7);
+        //Este metodo guardará al usuario enviado
+        proyectoService.save(proyecto);
+        return proyecto;
+    }
+
+    /*Este método se hará cuando por una petición PUT (como indica la anotación) se llame a la url
+    http://127.0.0.1:8080/Prueba/proyecto/  */
+    @PutMapping("/proyecto")
+    public Proyecto updateUser(@RequestBody Proyecto proyecto) {
+        proyectoService.save(proyecto);
+        //este metodo actualizará al usuario enviado
+        return proyecto;
+    }
+
+    /*Este método se hará cuando por una petición DELETE (como indica la anotación) se llame a la url + id del usuario
+    http://127.0.0.1:8080/Prueba/proyecto/1  */
+    @DeleteMapping("/proyecto/{proyectId}")
+    public String deleteUser(@PathVariable int proyectId){
+        Proyecto proyecto = proyectoService.findById(proyectId);
+        if (proyecto == null) {
+            throw new RuntimeException("Project not found-" + proyectId);
+        }
+        proyectoService.deleteById(proyectId);
+        //Esto método, recibira el id de un usuario por URL y se borrará de la bd.
+        return "Deleted project id-" + proyectId;
+    }
+
+/*
+    @GetMapping("/proyecto/nombre")
+    public List<Proyecto> getByNombre(){
+        retornará todos los usuarios
+        return proyectoService.findAll();
+    }
+*/
+    @GetMapping("/proyecto/find")
+    public List<Proyecto> getByJSON(@RequestBody Proyecto proyecto){
+        List<Proyecto> list = proyectoService.findByJSON(proyecto);
+        for (Proyecto t : list) {
+            t.toString();
+        }
+        if(list.isEmpty()){
+            throw new RuntimeException("Project not found");
+        }
+        return list;
+    }
 }
