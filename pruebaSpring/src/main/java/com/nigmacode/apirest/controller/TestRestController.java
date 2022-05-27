@@ -197,6 +197,7 @@ public class TestRestController {
         //Este método, recibirá el ide de un usuario por URL y se borrará de la bd.
         return "Delete user id -"+userId;
     }
+    /*
     @GetMapping("caso/{nombre_caso_uso}")
     public Caso_uso getNombreCasoUso(@PathVariable String nombre_caso_uso){
         Caso_uso caso = casoService.findByNombre(nombre_caso_uso);
@@ -208,7 +209,7 @@ public class TestRestController {
         //Este método, recibirá el ide de un usuario por URL y se borrará de la bd.
         return caso;
     }
-
+*/
     @GetMapping("/casos/parameters")
     public List<Caso_uso> getByJSONCasoUso(@RequestBody Caso_uso caso){
         return casoService.findByJSON(caso);
