@@ -19,7 +19,7 @@ public class Test {
 
     //Crea las columnas de la tabla test, indicando el tipo de valor que van a almacenar
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="cod_test")
     private int cod_test;
 

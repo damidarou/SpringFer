@@ -39,11 +39,13 @@ public class Proyecto {
     @Column(name = "cod_usuario",updatable = false,insertable = false)
     private int cod_usuario;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cod_usuario")
     @JsonIgnoreProperties("usuario")
     private User usuario;
+
     @OneToMany(mappedBy = "proyecto")
+    @JsonIgnoreProperties("proyecto")
     private List<Caso_uso> caso_usos;
 
     public Proyecto() {}
@@ -59,6 +61,14 @@ public class Proyecto {
         this.cod_usuario = cod_usuario;
     }
 
+    public List<Caso_uso> getCaso_usos() {
+        return caso_usos;
+    }
+
+    public void setCaso_usos(List<Caso_uso> caso_usos) {
+        this.caso_usos = caso_usos;
+    }
+
     public User getUsuario() {
         return usuario;
     }
@@ -67,13 +77,7 @@ public class Proyecto {
         this.usuario = usuario;
     }
 
-    public List<Caso_uso> getCaso_usos() {
-        return caso_usos;
-    }
 
-    public void setCaso_usos(List<Caso_uso> caso_usos) {
-        this.caso_usos = caso_usos;
-    }
 
     public int getCod_proyecto() {
         return cod_proyecto;

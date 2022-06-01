@@ -28,19 +28,12 @@ public class User {
     @Column(name="apellido1")
     private String apellido1;
 
-    public List<Proyecto> getProyectos() {
-        return proyectos;
-    }
-
-    public void setProyectos(List<Proyecto> proyectos) {
-        this.proyectos = proyectos;
-    }
 
     @Column(name="apellido2")
     private String apellido2;
 
     @OneToMany(mappedBy = "usuario")
-    @JsonIgnoreProperties("usuarios")
+    @JsonIgnoreProperties("usuario")
     List<Proyecto> proyectos;
 
     @ManyToOne(optional = false)
@@ -67,6 +60,14 @@ public class User {
         this.nombre=nombre;
         this.apellido1=apellido1;
         this.apellido2=apellido2;
+    }
+
+    public List<Proyecto> getProyectos() {
+        return proyectos;
+    }
+
+    public void setProyectos(List<Proyecto> proyectos) {
+        this.proyectos = proyectos;
     }
 
     public String getUsername() {
