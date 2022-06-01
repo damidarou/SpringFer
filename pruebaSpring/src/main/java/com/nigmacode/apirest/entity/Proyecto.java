@@ -2,6 +2,7 @@ package com.nigmacode.apirest.entity;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -27,9 +28,9 @@ public class Proyecto {
     @CreationTimestamp
     private Date fecha_creacion_proyecto;
 
-    @Column(name = "fecha_modificacion")
+    @Column(name = "fecha_modificacion_proyecto")
     @UpdateTimestamp
-    private Date fecha_modificacion;
+    private Date fecha_modificacion_proyecto;
 
     @Column(name = "version_proyecto")
     private double version_proyecto;
@@ -37,26 +38,28 @@ public class Proyecto {
     @Column(name = "cod_usuario")
     private int cod_usuario;
 
-    //@OneToMany(mappedBy = "Project", cascade = CascadeType.ALL)
-    //Set<Proyecto> proyectoSet = new HashSet<Proyecto>();
+    @OneToMany(mappedBy = "proyecto")
+    private List<Caso_uso> caso_usos;
 
-    /*@OneToOne(mappedBy = "proyecto")
-    private Caso_uso caso_uso;
-    */
-    //private Test test;
-
-    public Proyecto() {
-    }
+    public Proyecto() {}
 
     public Proyecto(int cod_proyecto, String nombre_proyecto,
-                    Date fecha_creacion_proyecto, Date fecha_modificacion,
+                    Date fecha_creacion_proyecto, Date fecha_modificacion_proyecto,
                     double version_proyecto, int cod_usuario) {
         this.cod_proyecto = cod_proyecto;
         this.nombre_proyecto = nombre_proyecto;
         this.fecha_creacion_proyecto = fecha_creacion_proyecto;
-        this.fecha_modificacion = fecha_modificacion;
+        this.fecha_modificacion_proyecto = fecha_modificacion_proyecto;
         this.version_proyecto = version_proyecto;
         this.cod_usuario = cod_usuario;
+    }
+
+    public List<Caso_uso> getCaso_usos() {
+        return caso_usos;
+    }
+
+    public void setCaso_usos(List<Caso_uso> caso_usos) {
+        this.caso_usos = caso_usos;
     }
 
     public int getCod_proyecto() {
@@ -83,12 +86,12 @@ public class Proyecto {
         this.fecha_creacion_proyecto = fecha_creacion_proyecto;
     }
 
-    public Date getFecha_modificacion() {
-        return fecha_modificacion;
+    public Date getFecha_modificacion_proyecto() {
+        return fecha_modificacion_proyecto;
     }
 
     public void setFecha_modificacion(Date fecha_modificacion) {
-        this.fecha_modificacion = fecha_modificacion;
+        this.fecha_modificacion_proyecto = fecha_modificacion;
     }
 
     public double getVersion_proyecto() {
@@ -114,7 +117,7 @@ public class Proyecto {
                 "cod_proyecto=" + cod_proyecto +
                 ", nombre_proyecto='" + nombre_proyecto + '\'' +
                 ", fecha_creacion_proyecto=" + fecha_creacion_proyecto +
-                ", fecha_modificacion=" + fecha_modificacion +
+                ", fecha_modificacion_proyecto=" + fecha_modificacion_proyecto +
                 ", version_proyecto=" + version_proyecto +
                 ", cod_usuario=" + cod_usuario +
                 '}';

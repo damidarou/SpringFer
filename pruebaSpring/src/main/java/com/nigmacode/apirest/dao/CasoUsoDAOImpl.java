@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,6 @@
 package com.nigmacode.apirest.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.ForeignKey;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,18 +39,10 @@ public class Test {
     @Column(name="cod_usuario")
     private int cod_usuario;
 
-/*
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_caso_uso", referencedColumnName = "cod_caso_uso", insertable=false, updatable=false)
+    @JsonIgnoreProperties("tests")
     private Caso_uso caso_uso;
- */
-
-   // private Proyecto proyecto;
-
-   @ManyToOne
-   @JoinColumn(name = "fk_cod_caso_uso")
-   private Caso_uso caso_Uso;
-
     public Test(){}
 
     //Constructor de Test usando como parametros todas las columnas creadas
@@ -110,6 +103,11 @@ public class Test {
     }
 
     public int getCaso_uso(){return  id_caso_uso;}
+
+    public void setCaso_uso(Caso_uso caso_uso) {
+        this.caso_uso = caso_uso;
+    }
+
     @Override
     public String toString() {
         return "Test{" +
@@ -117,10 +115,9 @@ public class Test {
                 ", nombre='" + nombre + '\'' +
                 ", objetivo='" + objetivo + '\'' +
                 ", estado='" + estado + '\'' +
-                ", cod_caso_uso=" + id_caso_uso +
+                ", id_caso_uso=" + id_caso_uso +
                 ", cod_usuario=" + cod_usuario +
                 '}';
     }
-
 
 }

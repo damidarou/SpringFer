@@ -1,4 +1,5 @@
 package com.nigmacode.apirest.entity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -39,23 +40,20 @@ public class Caso_uso {
 
     @Column(name="cod_usuario")
     private int cod_usuario;
-/*
-    @OneToOne(mappedBy = "caso_uso")
-    private Test test;
+
+    @OneToMany(mappedBy = "caso_uso")
+    @JsonIgnoreProperties("caso_uso")
+    private List<Test> tests;
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_proyecto", referencedColumnName = "cod_proyecto", insertable=false, updatable=false)
+    private Proyecto proyecto;
 
-    private Proyecto proyecto;
-*/
-    /*
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cod_proyecto", referencedColumnName = "cod_proyecto")
-    private Proyecto proyecto;
-*/
     public Caso_uso(){}
 
-    public Caso_uso(int cod_caso_uso, String nombre_caso_uso, String descripcion, int id_proyecto, int cod_usuario, Date fecha_creacion_caso_uso, Date fecha_modificacion_caso_uso) {
+    public Caso_uso(int cod_caso_uso, String nombre_caso_uso, String descripcion, int id_proyecto, int cod_usuario,
+                    Date fecha_creacion_caso_uso, Date fecha_modificacion_caso_uso) {
         this.cod_caso_uso = cod_caso_uso;
         this.nombre_caso_uso = nombre_caso_uso;
         this.descripcion = descripcion;
@@ -63,6 +61,14 @@ public class Caso_uso {
         this.cod_usuario = cod_usuario;
         this.fecha_creacion_caso_uso = fecha_creacion_caso_uso;
         this.fecha_modificacion_caso_uso = fecha_modificacion_caso_uso;
+    }
+
+    public List<Test> getTests() {
+        return tests;
+    }
+
+    public void setTests(List<Test> tests) {
+        this.tests = tests;
     }
 
     public int getCod_caso_uso() {
@@ -109,7 +115,7 @@ public class Caso_uso {
         return id_proyecto;
     }
 
-    public void setCod_proyecto(int cod_proyecto) {
+    public void setId_proyecto(int cod_proyecto) {
         this.id_proyecto = cod_proyecto;
     }
 
@@ -134,10 +140,4 @@ public class Caso_uso {
                 '}';
     }
 
-    @OneToMany(mappedBy = "caso_Uso", cascade = CascadeType.ALL)
-    Set<Caso_uso> caso_usoSet = new HashSet<Caso_uso>();
-
-    @ManyToOne
-    @JoinColumn(name = "fk_proyecto")
-    private Proyecto Project;
 }
