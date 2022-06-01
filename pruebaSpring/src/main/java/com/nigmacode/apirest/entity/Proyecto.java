@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -35,9 +36,13 @@ public class Proyecto {
     @Column(name = "version_proyecto")
     private double version_proyecto;
 
-    @Column(name = "cod_usuario")
+    @Column(name = "cod_usuario",updatable = false,insertable = false)
     private int cod_usuario;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "cod_usuario")
+    @JsonIgnoreProperties("usuario")
+    private User usuario;
     @OneToMany(mappedBy = "proyecto")
     private List<Caso_uso> caso_usos;
 
@@ -52,6 +57,14 @@ public class Proyecto {
         this.fecha_modificacion_proyecto = fecha_modificacion_proyecto;
         this.version_proyecto = version_proyecto;
         this.cod_usuario = cod_usuario;
+    }
+
+    public User getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(User usuario) {
+        this.usuario = usuario;
     }
 
     public List<Caso_uso> getCaso_usos() {

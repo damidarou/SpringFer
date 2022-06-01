@@ -3,6 +3,7 @@ package com.nigmacode.apirest.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="usuario")
@@ -26,9 +27,21 @@ public class User {
     private String nombre;
     @Column(name="apellido1")
     private String apellido1;
+
+    public List<Proyecto> getProyectos() {
+        return proyectos;
+    }
+
+    public void setProyectos(List<Proyecto> proyectos) {
+        this.proyectos = proyectos;
+    }
+
     @Column(name="apellido2")
     private String apellido2;
 
+    @OneToMany(mappedBy = "usuario")
+    @JsonIgnoreProperties("usuarios")
+    List<Proyecto> proyectos;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_perfil")
