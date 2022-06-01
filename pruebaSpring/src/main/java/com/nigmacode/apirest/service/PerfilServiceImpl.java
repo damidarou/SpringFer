@@ -1,7 +1,7 @@
 package com.nigmacode.apirest.service;
 
-import com.Landra.apirest.entity.Perfil;
-import com.Landra.apirest.repository.PerfilRepository;
+import com.nigmacode.apirest.entity.Perfil;
+import com.nigmacode.apirest.repository.PerfilRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

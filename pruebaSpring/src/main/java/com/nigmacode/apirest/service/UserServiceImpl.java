@@ -1,8 +1,8 @@
 package com.nigmacode.apirest.service;
 
-import com.Landra.apirest.dao.UserDAO;
-import com.Landra.apirest.entity.User;
-import com.Landra.apirest.repository.UserRepository;
+import com.nigmacode.apirest.dao.UserDAO;
+import com.nigmacode.apirest.entity.User;
+import com.nigmacode.apirest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

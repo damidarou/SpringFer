@@ -1,6 +1,6 @@
 package com.nigmacode.apirest.service;
 
-import com.Landra.apirest.entity.Perfil;
+import com.nigmacode.apirest.entity.Perfil;
 
 import java.util.List;
 import java.util.Optional;

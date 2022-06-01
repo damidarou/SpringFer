@@ -1,6 +1,6 @@
 package com.nigmacode.apirest.dao;
 
-import com.Landra.apirest.entity.User;
+import com.nigmacode.apirest.entity.User;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;

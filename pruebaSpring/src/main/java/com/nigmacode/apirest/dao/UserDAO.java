@@ -1,6 +1,6 @@
 package com.nigmacode.apirest.dao;
 
-import com.Landra.apirest.entity.User;
+import com.nigmacode.apirest.entity.User;
 
 import java.util.List;
 
