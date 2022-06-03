@@ -5,9 +5,10 @@ import com.nigmacode.apirest.entity.Caso_uso;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+
+import com.nigmacode.apirest.entity.Test;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

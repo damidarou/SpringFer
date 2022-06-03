@@ -39,14 +39,23 @@ public class Proyecto {
     @Column(name = "cod_usuario",updatable = false,insertable = false)
     private int cod_usuario;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cod_usuario")
-    @JsonIgnoreProperties("usuario")
-    private User usuario;
 
     @OneToMany(mappedBy = "proyecto")
     @JsonIgnoreProperties("proyecto")
     private List<Caso_uso> caso_usos;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_usuario", referencedColumnName = "cod_usuario", insertable=false, updatable=false)
+    @JsonIgnoreProperties("proyectos")
+    private User usuario;
+
+    public User getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(User usuario) {
+        this.usuario = usuario;
+    }
 
     public Proyecto() {}
 
@@ -67,14 +76,6 @@ public class Proyecto {
 
     public void setCaso_usos(List<Caso_uso> caso_usos) {
         this.caso_usos = caso_usos;
-    }
-
-    public User getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(User usuario) {
-        this.usuario = usuario;
     }
 
 

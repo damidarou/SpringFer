@@ -1,10 +1,13 @@
 package com.nigmacode.apirest.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.nigmacode.apirest.entity.*;
 import com.nigmacode.apirest.service.*;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.persistence.EntityManager;
 
 //Indiciamos que es un controlador rest
 @RestController
@@ -85,8 +90,12 @@ public class TestRestController {
         test.setCod_test(0);
 
         //Este metodo guardará al usuario enviado
-        testService.save(test);
-
+        User us = userService.findById(test.getCod_usuario());
+        if(us == null){
+            throw new RuntimeException("El usuario "+test.getCod_usuario()+" no existe");
+        } else {
+            testService.save(test);
+        }
         return test;
 
     }
@@ -157,9 +166,13 @@ public class TestRestController {
     public Caso_uso addUserCasoUso(@RequestBody Caso_uso caso){
         caso.setCod_caso_uso(0);
 
+        User us = userService.findById(caso.getCod_usuario());
+        if(us == null){
+            throw new RuntimeException("El usuario "+caso.getCod_usuario()+" no existe");
+        } else {
+            casoService.save(caso);
+        }
         //Este metodo guardará al usario enviado
-        casoService.save(caso);
-
         return caso;
     }
 
@@ -221,13 +234,27 @@ public class TestRestController {
 
     @Autowired
     private ProyectoService proyectoService;
-
+    @Autowired
+    EntityManager entityManager;
     /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url
     http://127.0.0.1:8080/Prueba/proyecto*/
     @GetMapping("/proyecto")
     public List<Proyecto> findAllProyecto(){
         //retornará todos los usuarios
-        return proyectoService.findAll();
+        try {
+            for (Proyecto proyectos : proyectoService.findAll()) {
+                for (Caso_uso casos: proyectos.getCaso_usos()) {
+                    casos.setTests(null);
+
+                }
+                proyectos.setUsuario(null);
+            }
+
+            return proyectoService.findAll();
+        }catch (IllegalArgumentException err){
+            List<Proyecto> p = new ArrayList<>();
+            return p;
+        }
     }
 
     /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url + el id de un usuario
@@ -242,13 +269,20 @@ public class TestRestController {
         return proyecto;
     }
 
+    @Autowired
+    private UserService userService;
     /*Este método se hará cuando por una petición POST (como indica la anotación) se llame a la url
     http://127.0.0.1:8080/Prueba/proyecto/  */
     @PostMapping("/proyecto")
     public Proyecto addUser(@RequestBody Proyecto proyecto) {
         // user.setCod_usuario(7);
         //Este metodo guardará al usuario enviado
-        proyectoService.save(proyecto);
+        User us = userService.findById(proyecto.getCod_usuario());
+        if(us == null){
+            throw new RuntimeException("El usuario "+proyecto.getCod_usuario()+" no existe");
+        } else {
+            proyectoService.save(proyecto);
+        }
         return proyecto;
     }
 

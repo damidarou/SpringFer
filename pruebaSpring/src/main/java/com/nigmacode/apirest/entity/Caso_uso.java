@@ -51,10 +51,8 @@ public class Caso_uso {
     @JsonIgnoreProperties("caso_usos")
     private Proyecto proyecto;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="cod_usuario", referencedColumnName = "cod_usuario", insertable = false, updatable = false)
-    @JsonIgnoreProperties("casos")
-    private User user;
+
+
 
     public Caso_uso(){}
 
@@ -69,19 +67,6 @@ public class Caso_uso {
         this.fecha_modificacion_caso_uso = fecha_modificacion_caso_uso;
     }
 
-    public Proyecto getProyecto() {
-        return proyecto;
-    }
-
-    public void setProyecto(Proyecto proyecto) {
-        this.proyecto = proyecto;
-    }
-
-
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public List<Test> getTests() {
         return tests;

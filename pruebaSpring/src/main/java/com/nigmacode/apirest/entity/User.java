@@ -32,15 +32,23 @@ public class User {
     @Column(name="apellido2")
     private String apellido2;
 
-    @OneToMany(mappedBy = "usuario")
-    @JsonIgnoreProperties("usuario")
-    List<Proyecto> proyectos;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_perfil")
     @JsonIgnoreProperties("usuarios")
     private Perfil perfil;
 
+    @OneToMany(mappedBy = "usuario")
+    @JsonIgnoreProperties("usuario")
+    List<Proyecto> proyectos;
+
+    public List<Proyecto> getProyectos() {
+        return proyectos;
+    }
+
+    public void setProyectos(List<Proyecto> proyectos) {
+        this.proyectos = proyectos;
+    }
 
     public Perfil getPerfil() {
         return perfil;
@@ -62,13 +70,6 @@ public class User {
         this.apellido2=apellido2;
     }
 
-    public List<Proyecto> getProyectos() {
-        return proyectos;
-    }
-
-    public void setProyectos(List<Proyecto> proyectos) {
-        this.proyectos = proyectos;
-    }
 
     public String getUsername() {
         return username;

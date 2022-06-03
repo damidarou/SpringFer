@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import com.nigmacode.apirest.entity.Caso_uso;
+import com.nigmacode.apirest.entity.Test;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,6 @@ public class ProyectoDAOImpl implements ProyectoDAO{
         return proyecto;
 
     }
-
 
     @Override
     public Proyecto findById(int id) {

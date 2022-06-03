@@ -5,6 +5,7 @@ import java.util.List;
 import com.nigmacode.apirest.entity.Caso_uso;
 
 public interface CasoService {
+
     public List<Caso_uso> findAll();
 
     public Caso_uso findById(int id);

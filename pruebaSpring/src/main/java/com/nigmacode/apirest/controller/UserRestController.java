@@ -1,10 +1,13 @@
 package com.nigmacode.apirest.controller;
 
+import com.nigmacode.apirest.entity.Caso_uso;
+import com.nigmacode.apirest.entity.Proyecto;
 import com.nigmacode.apirest.entity.User;
 import com.nigmacode.apirest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //Indiciamos que es un controlador rest
@@ -22,7 +25,19 @@ public class UserRestController {
     @GetMapping("/users")
     public List<User> findAll(){
         //retornará todos los usuarios
-        return userService.findAll();
+        try {
+            for (User user : userService.findAll()) {
+                for (Proyecto proyecto:user.getProyectos()) {
+                  proyecto.setCaso_usos(null);
+                }
+            }
+
+            return userService.findAll();
+        }catch (IllegalArgumentException err){
+            List<User> p = new ArrayList<>();
+            return p;
+        }
+
     }
 
     /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url + el id de un usuario
