@@ -42,6 +42,10 @@ public class User {
     @JsonIgnoreProperties("usuario")
     List<Proyecto> proyectos;
 
+    @OneToMany(mappedBy = "users2")
+    @JsonIgnoreProperties("users2")
+    List<Ejecutar> ejecuciones;
+
     public List<Proyecto> getProyectos() {
         return proyectos;
     }

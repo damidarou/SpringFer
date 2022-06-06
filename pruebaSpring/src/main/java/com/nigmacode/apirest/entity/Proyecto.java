@@ -49,14 +49,6 @@ public class Proyecto {
     @JsonIgnoreProperties("proyectos")
     private User usuario;
 
-    public User getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(User usuario) {
-        this.usuario = usuario;
-    }
-
     public Proyecto() {}
 
     public Proyecto(int cod_proyecto, String nombre_proyecto,
@@ -78,7 +70,13 @@ public class Proyecto {
         this.caso_usos = caso_usos;
     }
 
+    public User getUsuario() {
+        return usuario;
+    }
 
+    public void setUsuario(User usuario) {
+        this.usuario = usuario;
+    }
 
     public int getCod_proyecto() {
         return cod_proyecto;

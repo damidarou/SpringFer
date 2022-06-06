@@ -62,7 +62,7 @@ public class TestDAOImpl implements TestDAO{
         String f6 = "cod_caso_uso="+test.getId_caso_uso();
         String f7 = "cod_usuario="+test.getCod_usuario();
 
-        if (test.getCod_test()==0&&test.getCod_usuario()==0&&test.getId_caso_uso()==0&&test.getNombre()==null&&test.getEstado()==null&&test.getObjetivo()==null){
+        if (test.getCod_test()==0&&test.getCod_usuario()==0&&test.getId_caso_uso()==0&&test.getNombre()==null&&test.getEstado()==0&&test.getObjetivo()==null){
             f1="select t from Test t";
         }
 
@@ -83,7 +83,7 @@ public class TestDAOImpl implements TestDAO{
                 f1 = f1 +" and "+f4;
             }
         }
-        if(test.getEstado()!=null){
+        if(test.getEstado()!=0){
             if(f1.contentEquals("select t from Test t where ")){
                 f1 = f1+f5;
             } else {

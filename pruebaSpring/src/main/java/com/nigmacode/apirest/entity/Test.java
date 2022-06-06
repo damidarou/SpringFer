@@ -30,7 +30,7 @@ public class Test {
     private String objetivo;
 
     @Column(name="estado")
-    private estado estado;
+    private int estado;
 //ESTADO es un enum, solo admite los valores (PASSED, FAILED, BLOCKED, UNTESTED)
 
     @Column(name="id_caso_uso")
@@ -39,6 +39,10 @@ public class Test {
     @Column(name="cod_usuario")
     private int cod_usuario;
 
+    @OneToMany(mappedBy = "tests2")
+    @JsonIgnoreProperties("tests2")
+    List<Ejecutar> ejecuciones;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_caso_uso", referencedColumnName = "cod_caso_uso", insertable=false, updatable=false)
     @JsonIgnoreProperties("tests")
@@ -46,7 +50,7 @@ public class Test {
     public Test(){}
 
     //Constructor de Test usando como parametros todas las columnas creadas
-    public Test(int cod_test, String nombre, String objetivo, int id_caso_uso, int cod_usuario, estado estado) {
+    public Test(int cod_test, String nombre, String objetivo, int id_caso_uso, int cod_usuario, int estado) {
         this.cod_test = cod_test;
         this.nombre = nombre;
         this.objetivo = objetivo;
@@ -78,11 +82,11 @@ public class Test {
         this.objetivo = objetivo;
     }
 
-    public estado getEstado() {
+    public int getEstado() {
         return estado;
     }
 
-    public void setEstado(estado estado) {
+    public void setEstado(int estado) {
         this.estado = estado;
     }
 
