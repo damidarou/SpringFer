@@ -1,14 +1,15 @@
 package com.nigmacode.apirest.controller;
 
-import com.nigmacode.apirest.entity.Caso_uso;
-import com.nigmacode.apirest.entity.Proyecto;
-import com.nigmacode.apirest.entity.User;
+import com.nigmacode.apirest.entity.*;
+import com.nigmacode.apirest.service.PerfilService;
+import com.nigmacode.apirest.service.ProyectoService;
 import com.nigmacode.apirest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 //Indiciamos que es un controlador rest
 @RestController
@@ -19,7 +20,10 @@ public class UserRestController {
     //Inyectamos el servicio para poder hacer uso de el
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private PerfilService perfilService;
+    @Autowired
+    private ProyectoService proyectoService;
     /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url
     http://127.0.0.1:8080/api/users*/
     @GetMapping("/users")
@@ -49,7 +53,9 @@ public class UserRestController {
         if(user == null) {
             throw new RuntimeException("User id not found -"+userId);
         }
-        //retornará al usuario con id pasado en la url
+        for (Proyecto proyecto:user.getProyectos()) {
+            proyecto.setCaso_usos(null);
+        }
         return user;
     }
     @GetMapping("/users/username/{username}")
@@ -67,10 +73,8 @@ public class UserRestController {
     @PostMapping("/users")
     public User addUser(@RequestBody User user) {
         user.setCod_usaurio(0);
-
         //Este metodo guardará al usuario enviado
         userService.save(user);
-
         return user;
 
     }
@@ -78,11 +82,7 @@ public class UserRestController {
     http://127.0.0.1:8080/api/users/  */
     @PutMapping("/users")
     public User updateUser(@RequestBody User user) {
-
         userService.save(user);
-
-        //este metodo actualizará al usuario enviado
-
         return user;
     }
 
@@ -105,7 +105,14 @@ public class UserRestController {
     @GetMapping("/users/")
     public List<User> buscar(@RequestBody User user){
         //retornará todos los usuarios
-        return userService.buscar(user);
+        List<User> usuarios=userService.buscar(user);
+        for (User usuario:usuarios) {
+            for (Proyecto proyecto:usuario.getProyectos()) {
+                proyecto.setCaso_usos(null);
+            }
+
+        }
+        return usuarios;
     }
 
 }
