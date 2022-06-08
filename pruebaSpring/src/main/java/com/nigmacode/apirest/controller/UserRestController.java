@@ -49,18 +49,25 @@ public class UserRestController {
         if(user == null) {
             throw new RuntimeException("User id not found -"+userId);
         }
-        //retornará al usuario con id pasado en la url
+        for (Proyecto proyecto:user.getProyectos()) {
+            proyecto.setCaso_usos(null);
+        }
         return user;
     }
     @GetMapping("/users/username/{username}")
-    public User getUsername(@PathVariable String username){
-        User user = userService.findByUsername(username);
+    public List<User> getUsername(@PathVariable String username){
+        List<User> users = userService.findByUsername(username);
 
-        if(user == null) {
+        if(users == null) {
             throw new RuntimeException("User id not found -"+username);
         }
-        //retornará al usuario con id pasado en la url
-        return user;
+        for (User user:users) {
+            for (Proyecto proyecto:user.getProyectos()) {
+                proyecto.setCaso_usos(null);
+            }
+        }
+
+        return users;
     }
     /*Este método se hará cuando por una petición POST (como indica la anotación) se llame a la url
     http://127.0.0.1:8080/api/users/  */
@@ -77,7 +84,7 @@ public class UserRestController {
     /*Este método se hará cuando por una petición PUT (como indica la anotación) se llame a la url
     http://127.0.0.1:8080/api/users/  */
     @PutMapping("/users")
-    public User updateUser(@RequestBody User user) {
+    public User updateUsaurio(@RequestBody User user) {
 
         userService.save(user);
 
@@ -102,7 +109,7 @@ public class UserRestController {
         //Esto método, recibira el id de un usuario por URL y se borrará de la bd.
         return "Deleted user id - "+userId;
     }
-    @GetMapping("/users/")
+    @GetMapping("/users/find")
     public List<User> buscar(@RequestBody User user){
         //retornará todos los usuarios
         return userService.buscar(user);

@@ -30,7 +30,7 @@ public class Test {
     private String objetivo;
 
     @Column(name="estado")
-    private int estado;
+    private estado estado;
 //ESTADO es un enum, solo admite los valores (PASSED, FAILED, BLOCKED, UNTESTED)
 
     @Column(name="id_caso_uso")
@@ -50,7 +50,7 @@ public class Test {
     public Test(){}
 
     //Constructor de Test usando como parametros todas las columnas creadas
-    public Test(int cod_test, String nombre, String objetivo, int id_caso_uso, int cod_usuario, int estado) {
+    public Test(int cod_test, String nombre, String objetivo, int id_caso_uso, int cod_usuario, estado estado) {
         this.cod_test = cod_test;
         this.nombre = nombre;
         this.objetivo = objetivo;
@@ -82,11 +82,11 @@ public class Test {
         this.objetivo = objetivo;
     }
 
-    public int getEstado() {
+    public estado getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(estado estado) {
         this.estado = estado;
     }
 
@@ -104,12 +104,6 @@ public class Test {
 
     public void setCod_usuario(int cod_usuario) {
         this.cod_usuario = cod_usuario;
-    }
-
-    public int getCaso_uso(){return  id_caso_uso;}
-
-    public void setCaso_uso(Caso_uso caso_uso) {
-        this.caso_uso = caso_uso;
     }
 
     @Override

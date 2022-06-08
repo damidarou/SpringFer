@@ -30,15 +30,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         userDAO.save(user);
-
     }
 
     @Override
     public void deleteById(int id) {
         userDAO.deleteById(id);
     }
-    public User findByUsername(String username) {
-        User user=userDAO.findByUsername(username);
+
+    public List<User> findByUsername(String username) {
+        List<User> user=userDAO.findByUsername(username);
         return user;
     }
 

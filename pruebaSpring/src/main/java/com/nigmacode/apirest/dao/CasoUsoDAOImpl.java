@@ -99,9 +99,9 @@ public class CasoUsoDAOImpl implements CasoUsoDAO{
 
         if (user.getId_proyecto()!=0) {
             if (json.contentEquals("from Caso_uso where ")){
-                json = json + "cod_proyecto = '" + user.getId_proyecto()+"'";
+                json = json + "id_proyecto = '" + user.getId_proyecto()+"'";
             }
-            else json = json + "and cod_proyecto = '" +user.getId_proyecto()+"'";
+            else json = json + "and id_proyecto = '" +user.getId_proyecto()+"'";
         }
 
         Query<Caso_uso> theQuery = currentSession.createQuery(json, Caso_uso.class);

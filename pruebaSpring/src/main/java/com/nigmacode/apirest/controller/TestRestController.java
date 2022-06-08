@@ -40,19 +40,11 @@ public class TestRestController {
         return testService.findAll();
     }
 
-    @GetMapping("/tests")
-    public List<Test> findAll2(){
-        //retornará todos los usuarios
-        return testService.findAll();
-    }
-
-    @GetMapping("/tests/params")
+    @GetMapping("/test/params")
     public List<Test> findByParameters(@RequestBody Test test){
         List<Test> list = testService.findByParameters(test);
-        estado estado = null;
         for (Test t :list) {
             t.toString();
-            System.out.println("Estado: "+estado.getCodigoEstado(t.getEstado()));
         }
 
         if(list.isEmpty()){
@@ -74,7 +66,7 @@ public class TestRestController {
 
     /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url + el id de un usuario
     http://127.0.0.1:8080/api/users/1*/
-    @GetMapping("/test/{userId}")
+    @GetMapping("/test/ID/{userId}")
     public Test getUser(@PathVariable int userId){
         Test user = testService.findById(userId);
 
@@ -82,7 +74,9 @@ public class TestRestController {
             throw new RuntimeException("Test id not found -"+userId);
         }
         //retornará al usuario con id pasado en la url
-        return user;
+        else {
+            return user;
+        }
     }
 
     /*Este método se hará cuando por una petición POST (como indica la anotación) se llame a la url
@@ -94,9 +88,14 @@ public class TestRestController {
 
         //Este metodo guardará al usuario enviado
         User us = userService.findById(test.getCod_usuario());
+        Caso_uso cs = casoService.findById(test.getId_caso_uso());
         if(us == null){
             throw new RuntimeException("El usuario "+test.getCod_usuario()+" no existe");
-        } else {
+        }
+        if(cs == null){
+            throw new RuntimeException("El caso de uso "+test.getId_caso_uso()+" no existe");
+        }
+        else {
             testService.save(test);
         }
         return test;
@@ -170,9 +169,14 @@ public class TestRestController {
         caso.setCod_caso_uso(0);
 
         User us = userService.findById(caso.getCod_usuario());
+        Proyecto ps = proyectoService.findById(caso.getId_proyecto());
         if(us == null){
             throw new RuntimeException("El usuario "+caso.getCod_usuario()+" no existe");
-        } else {
+        }
+        if(ps == null){
+            throw new RuntimeException("El proyecto "+caso.getId_proyecto()+" no existe");
+        }
+        else {
             casoService.save(caso);
         }
         //Este metodo guardará al usario enviado
@@ -203,7 +207,7 @@ public class TestRestController {
         if (caso==null){
             throw new RuntimeException("Case id not found -"+userId);
         }
-        testService.deleteById(userId);
+        casoService.deleteById(userId);
 
         //Este método, recibirá el ide de un usuario por URL y se borrará de la bd.
         return "Delete case id -"+userId;
@@ -221,7 +225,7 @@ public class TestRestController {
         return caso;
     }
 */
-    @GetMapping("/casos/parameters")
+    @GetMapping("/caso/parameters")
     public List<Caso_uso> getByJSONCasoUso(@RequestBody Caso_uso caso) {
         List<Caso_uso> list = casoService.findByJSON(caso);
         for (Caso_uso t : list) {
@@ -321,7 +325,12 @@ public class TestRestController {
     @GetMapping("/proyecto/find")
     public List<Proyecto> getByJSON(@RequestBody Proyecto proyecto){
         List<Proyecto> list = proyectoService.findByJSON(proyecto);
+
         for (Proyecto t : list) {
+            for (Caso_uso caso_uso: t.getCaso_usos()) {
+                caso_uso.setTests(null);
+            }
+            t.setUsuario(null);
             t.toString();
         }
         if(list.isEmpty()){

@@ -34,24 +34,24 @@ public class UserDAOImpl implements UserDAO{
         return user;
     }
 
-    public User findByUsername(String username) {
+    public List<User> findByUsername(String username) {
         Session currentSession = entityManager.unwrap(Session.class);
 
         Query<User> theQuery = currentSession.createQuery("from User where username like :username", User.class);
         theQuery.setParameter("username", username);
-        User user =  theQuery.getSingleResult();
+        List<User> user =  theQuery.getResultList();
         return user;
     }
 
     public List<User> buscar(User user){
         String s="from User";
         Session currentSession = entityManager.unwrap(Session.class);
-        if (user.getCod_usaurio()!=0 || user.getContraseña()!=null || user.getUsername()!=null){
+        if (user.getCod_usaurio()!=0 || user.getContraseña()!=null || user.getUsername()!=null || user.getId_perfil()!=0 ||user.getNombre()!=null||user.getApellido1()!=null||user.getApellido2()!=null){
             s+=" where ";
 
         }
         if (user.getCod_usaurio()!=0){
-            s=s+"cod_usuario="+user.getCod_usaurio();
+            s=s+"cod_usaurio="+user.getCod_usaurio();
         }
         if (user.getContraseña()!=null){
             if (s.contentEquals("from User where ")){
@@ -71,14 +71,14 @@ public class UserDAOImpl implements UserDAO{
             if (s.contentEquals("from User where ")) {
                 s = s + " active='" + user.isActive() + "'";
             } else {
-                s = s + " and active=" + user.isActive() + "'";
+                s = s + " and active='" + user.isActive() + "'";
             }
         }
-        if (user.getCod_perfil()!=0){
+        if (user.getId_perfil()!=0){
             if(s.contentEquals("from User where ")){
-                s=s+" id_perfil="+user.getCod_perfil();
+                s=s+" id_perfil="+user.getId_perfil();
             }else{
-                s=s+" and id_perfil="+user.getCod_perfil();
+                s=s+" and id_perfil="+user.getId_perfil();
             }
         }
         if (user.getNombre()!=null){

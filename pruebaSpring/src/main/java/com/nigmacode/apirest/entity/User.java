@@ -18,8 +18,8 @@ public class User {
     @Column(name="contraseña")
     private String contraseña;
 
-    @Column(name="id_perfil",insertable = false,updatable = false)
-    private int cod_perfil;
+    @Column(name="id_perfil")
+    private int id_perfil;
 
     @Column(name="active")
     private boolean active;
@@ -34,7 +34,7 @@ public class User {
 
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_perfil")
+    @JoinColumn(name = "id_perfil", referencedColumnName = "id_perfil",insertable = false,updatable = false)
     @JsonIgnoreProperties("usuarios")
     private Perfil perfil;
 
@@ -64,11 +64,11 @@ public class User {
 
     public User() {}
 
-    public User(int cod_usaurio,String username,String contraseña,String nombre,String apellido1,String apellido2) {
+    public User(int cod_usaurio,String username,String contraseña,String nombre,String apellido1,String apellido2, int id_perfil) {
         this.cod_usaurio = cod_usaurio;
         this.username = username;
         this.contraseña=contraseña;
-        this.cod_perfil =0;
+        this.id_perfil =id_perfil;
         this.nombre=nombre;
         this.apellido1=apellido1;
         this.apellido2=apellido2;
@@ -79,12 +79,12 @@ public class User {
         return username;
     }
 
-    public int getCod_perfil() {
-        return cod_perfil;
+    public int getId_perfil() {
+        return id_perfil;
     }
 
-    public void setCod_perfil(int cod_perfil) {
-        this.cod_perfil = cod_perfil;
+    public void setId_perfil(int cod_perfil) {
+        this.id_perfil = cod_perfil;
     }
 
     public boolean isActive() {
@@ -145,7 +145,7 @@ public class User {
                 "cod_usaurio=" + cod_usaurio +
                 ", username='" + username + '\'' +
                 ", contraseña='" + contraseña + '\'' +
-                ", id_perfil=" + cod_perfil +
+                ", id_perfil=" + id_perfil +
                 ", active=" + active +
                 ", nombre='" + nombre + '\'' +
                 ", apellido1='" + apellido1 + '\'' +
