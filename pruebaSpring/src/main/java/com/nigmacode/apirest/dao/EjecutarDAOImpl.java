@@ -22,9 +22,9 @@ public class EjecutarDAOImpl implements EjecutarDAO{
     public List<Ejecutar> findAll() {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Ejecutar> theQuery = currentSession.createQuery("select t from Ejecutar t", Ejecutar.class);
-        List<Ejecutar> ejecutars = theQuery.getResultList();
+        List<Ejecutar> ejecutar = theQuery.getResultList();
 
-        return ejecutars;
+        return ejecutar;
     }
 
     @Override
@@ -37,6 +37,7 @@ public class EjecutarDAOImpl implements EjecutarDAO{
     }
 
     @Override
+    @Transactional
     public void save(Ejecutar ejecutar) {
         Session currentSession = entityManager.unwrap(Session.class);
         currentSession.saveOrUpdate(ejecutar);
@@ -50,10 +51,10 @@ public class EjecutarDAOImpl implements EjecutarDAO{
         String f2 = "cod_ejecuta="+ejecutar.getCod_ejecuta();
         String f3 = "id_user="+ejecutar.getId_user();
         String f4 = "id_test="+ejecutar.getId_test();
-        String f5 = "fecha="+ejecutar.getFecha();
+        String f5 = "fecha_modificacion_test = '"+ejecutar.getFecha()+"'";
         String f6 = "resultado like '"+ejecutar.getResultado()+"'";
 
-        if (ejecutar.getCod_ejecuta()==0 && ejecutar.getId_user()==0 && ejecutar.getId_test()==0 && ejecutar.getResultado()==0 && ejecutar.getFecha()==null){
+        if (ejecutar.getCod_ejecuta()==0 && ejecutar.getId_user()==0 && ejecutar.getId_test()==0 && ejecutar.getResultado()==null && ejecutar.getFecha()==null){
             f1="select t from Ejecutar t";
         }
 
@@ -74,7 +75,7 @@ public class EjecutarDAOImpl implements EjecutarDAO{
                 f1 = f1 +" and "+f4;
             }
         }
-        if(ejecutar.getResultado()!=0){
+        if(ejecutar.getResultado()!=null){
             if(f1.contentEquals("select t from Ejecutar t where ")){
                 f1 = f1+f6;
             } else {
@@ -88,16 +89,14 @@ public class EjecutarDAOImpl implements EjecutarDAO{
                 f1 = f1 +" and "+f5;
             }
         }
-
         Query<Ejecutar> theQuery = currentSession.createQuery(f1);
         List<Ejecutar> ejecuta = theQuery.getResultList();
-
         return ejecuta;
     }
 
     @Override
+    @Transactional
     public void deleteById(int cod_ejecuta) {
-
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Ejecutar> theQuery = currentSession.createQuery("delete from Ejecutar where cod_ejecuta=:idEjecuta") ;
         theQuery.setParameter("idEjecuta", cod_ejecuta);

@@ -35,7 +35,7 @@ public class Caso_uso {
     @UpdateTimestamp
     private Date fecha_modificacion_caso_uso;
 
-    @Column(name="id_proyecto")
+    @Column(name="cod_proyecto")
     private int id_proyecto;
 
     @Column(name="cod_usuario")
@@ -47,7 +47,7 @@ public class Caso_uso {
 
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_proyecto", referencedColumnName = "cod_proyecto", insertable=false, updatable=false)
+    @JoinColumn(name = "cod_proyecto", referencedColumnName = "cod_proyecto", insertable=false, updatable=false)
     @JsonIgnoreProperties("caso_usos")
     private Proyecto proyecto;
 

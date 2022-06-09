@@ -46,7 +46,6 @@ public class TestRestController {
         for (Test t :list) {
             t.toString();
         }
-
         if(list.isEmpty()){
             throw new RuntimeException("Test not found");
         }
@@ -243,6 +242,8 @@ public class TestRestController {
     private ProyectoService proyectoService;
     @Autowired
     EntityManager entityManager;
+    @Autowired
+    private UserService userService;
     /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url
     http://127.0.0.1:8080/Prueba/proyecto*/
     @GetMapping("/proyecto")
@@ -276,8 +277,6 @@ public class TestRestController {
         return proyecto;
     }
 
-    @Autowired
-    private UserService userService;
     /*Este método se hará cuando por una petición POST (como indica la anotación) se llame a la url
     http://127.0.0.1:8080/Prueba/proyecto/  */
     @PostMapping("/proyecto")
@@ -350,11 +349,6 @@ public class TestRestController {
     public List<Ejecutar> findAllEjecutar(){
         //retornará todos los usuarios
         try {
-            for (Ejecutar ejecutar : ejecutarService.findAll()) {
-              ejecutar.setUsers2(null);
-              ejecutar.setTests2(null);
-            }
-
             return ejecutarService.findAll();
         }catch (IllegalArgumentException err){
             List<Ejecutar> p = new ArrayList<>();
@@ -375,6 +369,7 @@ public class TestRestController {
         }
         return list;
     }
+
 
     /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url + el id de un usuario
     http://127.0.0.1:8080/api/users/1*/
@@ -413,7 +408,6 @@ public class TestRestController {
     http://127.0.0.1:8080/api/users/  */
     @PutMapping("/ejecutar")
     public Ejecutar updateUser(@RequestBody Ejecutar ejecutar) {
-
         ejecutarService.save(ejecutar);
 
         //este metodo actualizará al usuario enviado

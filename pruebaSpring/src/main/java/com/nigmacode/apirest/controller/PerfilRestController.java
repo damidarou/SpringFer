@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -25,12 +26,13 @@ public class PerfilRestController {
         return toret;
     }
     @GetMapping("/perfil/{id}")
-    public Optional<Perfil> FindByID(@PathVariable long id){
+    public Perfil FindByID(@PathVariable int id){
         Optional<Perfil> perfil= perfilservice.findById(id);
-        if(perfil == null) {
-            throw new RuntimeException("Perfil id not found -"+id);
+        Perfil toret = perfil.get();
+        for (User user:toret.getUsuarios()) {
+            user.setProyectos(null);
         }
-        return perfil;
+        return toret;
     }
     @PostMapping("/perfil")
     public Perfil addPerfil(@RequestBody Perfil perfil){
@@ -45,7 +47,7 @@ public class PerfilRestController {
     }
     @DeleteMapping("/perfil/{id}")
     public String deletePerfil(@PathVariable int id) {
-        Optional<Perfil> perfil = perfilservice.findById(Long.valueOf(id));
+        Optional<Perfil> perfil = perfilservice.findById(id);
         if (perfil == null) {
             return "El perfil " + id + " no existe";
         } else {

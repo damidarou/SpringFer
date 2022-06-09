@@ -1,6 +1,7 @@
 package com.nigmacode.apirest.dao;
 
 import com.nigmacode.apirest.entity.User;
+import com.nigmacode.apirest.service.UserService;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ public class UserDAOImpl implements UserDAO{
 
     @Autowired
     private EntityManager entityManager;
+
     @Override
     public List<User> findAll() {
         Session currentSession = entityManager.unwrap(Session.class);
@@ -48,7 +50,6 @@ public class UserDAOImpl implements UserDAO{
         Session currentSession = entityManager.unwrap(Session.class);
         if (user.getCod_usaurio()!=0 || user.getContraseña()!=null || user.getUsername()!=null || user.getId_perfil()!=0 ||user.getNombre()!=null||user.getApellido1()!=null||user.getApellido2()!=null){
             s+=" where ";
-
         }
         if (user.getCod_usaurio()!=0){
             s=s+"cod_usaurio="+user.getCod_usaurio();
@@ -62,16 +63,17 @@ public class UserDAOImpl implements UserDAO{
         }
         if (user.getUsername()!=null){
             if (s.contentEquals("from User where ")){
-                s=s+" username like '%"+user.getUsername()+"%'";
+                s=s+" username like '"+user.getUsername()+"'";
             }else {
-                s = s + " and username like '%"+user.getUsername()+"%'";
+                s = s + " and username like '"+user.getUsername()+"'";
             }
         }
+        //Aqui suponemos que hay q decir que active es distinto de null
         if (!s.contentEquals("from User")) {
             if (s.contentEquals("from User where ")) {
-                s = s + " active='" + user.isActive() + "'";
+                s = s + " active=" + user.isActive();
             } else {
-                s = s + " and active='" + user.isActive() + "'";
+                s = s + " and active=" + user.isActive();
             }
         }
         if (user.getId_perfil()!=0){
@@ -83,23 +85,23 @@ public class UserDAOImpl implements UserDAO{
         }
         if (user.getNombre()!=null){
             if (s.contentEquals("from User where ")){
-                s=s+"nombre like '%"+user.getNombre()+"%'";
+                s=s+"nombre like '"+user.getNombre()+"'";
             }else{
-                s=s+" and nombre like '%"+user.getNombre()+"%'";
+                s=s+" and nombre like '"+user.getNombre()+"'";
             }
         }
         if (user.getApellido1()!=null){
             if (s.contentEquals("from User where ")){
-                s=s+" apellido1 like %'"+user.getApellido1()+"%'";
+                s=s+" apellido1 like '"+user.getApellido1()+"'";
             }else {
-                s=s+" and apellido1 like %'"+user.getApellido1()+"%'";
+                s=s+" and apellido1 like '"+user.getApellido1()+"'";
             }
         }
         if (user.getApellido2()!=null){
             if (s.contentEquals("from User where ")){
-                s=s+" apellido2 like %'"+user.getApellido2()+"%'";
+                s=s+" apellido2 like '"+user.getApellido2()+"'";
             }else {
-                s=s+" and apellido2 like %'"+user.getApellido2()+"%'";
+                s=s+" and apellido2 like '"+user.getApellido2()+"'";
             }
         }
         Query<User> theQuery = currentSession.createQuery(s, User.class);

@@ -43,10 +43,8 @@ public class TestDAOImpl implements TestDAO{
     public Test findByName(String nombre){
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Test> theQuery = currentSession.createQuery("select t from Test t where nombre like :idTest") ;
-
         theQuery.setParameter("idTest", nombre);
         Test test = theQuery.getSingleResult();
-
         return test;
     }
 
@@ -115,7 +113,6 @@ public class TestDAOImpl implements TestDAO{
     @Transactional
     public void save(Test test) {
         Session currentSession = entityManager.unwrap(Session.class);
-
         currentSession.saveOrUpdate(test);
 
     }

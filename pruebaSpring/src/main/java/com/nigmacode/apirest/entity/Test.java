@@ -33,18 +33,15 @@ public class Test {
     private estado estado;
 //ESTADO es un enum, solo admite los valores (PASSED, FAILED, BLOCKED, UNTESTED)
 
-    @Column(name="id_caso_uso")
+    @Column(name="cod_caso_uso")
     private int id_caso_uso;
 
     @Column(name="cod_usuario")
     private int cod_usuario;
 
-    @OneToMany(mappedBy = "tests2")
-    @JsonIgnoreProperties("tests2")
-    List<Ejecutar> ejecuciones;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_caso_uso", referencedColumnName = "cod_caso_uso", insertable=false, updatable=false)
+    @JoinColumn(name = "cod_caso_uso", referencedColumnName = "cod_caso_uso", insertable=false, updatable=false)
     @JsonIgnoreProperties("tests")
     private Caso_uso caso_uso;
     public Test(){}

@@ -13,8 +13,7 @@ public class PerfilServiceImpl implements PerfilService{
     @Autowired
     private PerfilRepository perfilRepository;
 
-    @Override
-    public Optional< Perfil > findById(Long id) {
+    public Optional<Perfil> findById(int id) {
         return perfilRepository.findById(id);
     }
 
@@ -24,12 +23,17 @@ public class PerfilServiceImpl implements PerfilService{
     }
 
     @Override
+    public Optional<Perfil> findById(Integer id) {
+        return perfilRepository.findById(id);
+    }
+
+    @Override
     public List < Perfil > findAll() {
         return perfilRepository.findAll();
     }
 
     @Override
-    public void delete(long id) {
+    public void delete(Integer id) {
         perfilRepository.deleteById(id);
     }
 }

@@ -11,7 +11,7 @@ public interface PerfilService {
 
     void save(Perfil perfil);
 
-    Optional< Perfil > findById(Long id);
+     Optional<Perfil> findById(Integer id);
 
-    void delete(long id);
+    void delete(Integer id);
 }

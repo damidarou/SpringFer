@@ -20,54 +20,34 @@ public class Ejecutar {
     @Column(name="cod_ejecuta")
     private int cod_ejecuta;
 
-    @Column(name="id_user")
+    @Column(name="cod_usuario")
     private int id_user;
 
-    @Column(name="id_test")
+    @Column(name="cod_test")
     private int id_test;
 
-    @Column(name = "fecha")
+    @Column(name = "fecha_modificacion_test")
     @UpdateTimestamp
-    private Date fecha;
+    private Date fecha_modificacion_test;
 
     @Column(name = "resultado")
-    private int resultado;
+    private estado resultado;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_user", referencedColumnName = "cod_usuario", insertable = false, updatable = false)
-    private User users2;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_test", referencedColumnName = "cod_test", insertable = false, updatable = false)
-    private Test tests2;
 
     public Ejecutar() {
 
     }
 
-    public Ejecutar(int cod_ejecuta, int id_user, int id_test, Date fecha, int resultado) {
+    public Ejecutar(int cod_ejecuta, int id_user, int id_test, Date fecha_modificacion_test, estado resultado) {
         this.cod_ejecuta = cod_ejecuta;
         this.id_user = id_user;
         this.id_test = id_test;
-        this.fecha = fecha;
+        this.fecha_modificacion_test = fecha_modificacion_test;
         this.resultado = resultado;
     }
 
-    public User getUsers2() {
-        return users2;
-    }
 
-    public void setUsers2(User users2) {
-        this.users2 = users2;
-    }
-
-    public Test getTests2() {
-        return tests2;
-    }
-
-    public void setTests2(Test tests2) {
-        this.tests2 = tests2;
-    }
 
     public int getCod_ejecuta() {
         return cod_ejecuta;
@@ -94,18 +74,18 @@ public class Ejecutar {
     }
 
     public Date getFecha() {
-        return fecha;
+        return fecha_modificacion_test;
     }
 
     public void setFecha(Date fecha) {
-        this.fecha = fecha;
+        this.fecha_modificacion_test = fecha_modificacion_test;
     }
 
-    public int getResultado() {
+    public estado getResultado() {
         return resultado;
     }
 
-    public void setResultado(int resultado) {
+    public void setResultado(estado resultado) {
         this.resultado = resultado;
     }
 
@@ -115,7 +95,7 @@ public class Ejecutar {
                 "cod_ejecuta=" + cod_ejecuta +
                 ", id_user=" + id_user +
                 ", id_test=" + id_test +
-                ", fecha=" + fecha +
+                ", fecha_modificacion_test=" + fecha_modificacion_test +
                 ", resultado=" + resultado +
                 '}';
     }
