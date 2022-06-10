@@ -68,7 +68,7 @@ public class UserDAOImpl implements UserDAO{
                 s = s + " and username like '"+user.getUsername()+"'";
             }
         }
-        //Aqui suponemos que hay q decir que active es distinto de null
+
         if (!s.contentEquals("from User")) {
             if (s.contentEquals("from User where ")) {
                 s = s + " active=" + user.isActive();
