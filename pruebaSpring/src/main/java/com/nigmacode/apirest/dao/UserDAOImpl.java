@@ -17,6 +17,7 @@ public class UserDAOImpl implements UserDAO{
     @Autowired
     private EntityManager entityManager;
 
+    /*Esta función desarrolla un método que funciona como un SELECT * FROM User para obtener todos los usuarios*/
     @Override
     public List<User> findAll() {
         Session currentSession = entityManager.unwrap(Session.class);
@@ -26,7 +27,7 @@ public class UserDAOImpl implements UserDAO{
 
     }
 
-
+    /*Esta función desarrolla un método que funciona como un SELECT * para el usuario cuyo código coincida con el que le pasamos*/
     @Override
     public User findById(int id) {
         Session currentSession = entityManager.unwrap(Session.class);
@@ -36,6 +37,7 @@ public class UserDAOImpl implements UserDAO{
         return user;
     }
 
+    /*Esta función desarrolla un método que funciona como un SELECT * para el usuario cuyo username coincida con el que le pasamos*/
     public List<User> findByUsername(String username) {
         Session currentSession = entityManager.unwrap(Session.class);
 
@@ -45,6 +47,7 @@ public class UserDAOImpl implements UserDAO{
         return user;
     }
 
+    /*Esta funcion hace un SELECT * de todos los usuarios cuyos valores sean como los que les pasemos por parámetros*/
     public List<User> buscar(User user){
         String s="from User";
         Session currentSession = entityManager.unwrap(Session.class);
@@ -109,7 +112,7 @@ public class UserDAOImpl implements UserDAO{
         return users;
     }
 
-
+    /*Esta función sirve para guardar o actualizar los datos de un usuario*/
     @Override
     @Transactional
     public void save(User user) {
@@ -117,6 +120,7 @@ public class UserDAOImpl implements UserDAO{
         currentSession.saveOrUpdate(user);
     }
 
+    /*Esta función elimina un usuario cuyo código le pasemos por parámetro*/
     @Override
     @Transactional
     public void deleteById(int id) {

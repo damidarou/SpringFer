@@ -18,6 +18,7 @@ public class CasoUsoDAOImpl implements CasoUsoDAO{
     @Autowired
     private EntityManager entityManager;
 
+    /*Esta función desarrolla un método que funciona como un SELECT * FROM Caso_uso para obtener todos los casos de uso*/
     @Override
     public List<Caso_uso> findAllCasoUso() {
         Session currentSession = entityManager.unwrap(Session.class);
@@ -26,6 +27,7 @@ public class CasoUsoDAOImpl implements CasoUsoDAO{
         return caso;
     }
 
+    /*Esta función desarrolla un método que funciona como un SELECT * para el caso de uso cuyo código coincida con el que le pasamos*/
     @Override
     public Caso_uso findByIdCasoUso(int id) {
         Session currentSession = entityManager.unwrap(Session.class);
@@ -33,6 +35,7 @@ public class CasoUsoDAOImpl implements CasoUsoDAO{
         return caso;
     }
 
+    /*Esta función desarrolla un método que funciona como un SELECT * para el caso de uso cuyo nombre coincida con el que le pasamos*/
     @Override
     public Caso_uso findByNombreCasoUso(String nombre_caso_uso) {
         Session currentSession = entityManager.unwrap(Session.class);
@@ -42,6 +45,7 @@ public class CasoUsoDAOImpl implements CasoUsoDAO{
         return caso;
     }
 
+    /*Esta función sirve para guardar o actualizar los datos de un caso de uso*/
     @Override
     @Transactional
     public void saveCasoUso(Caso_uso caso_uso) {
@@ -49,6 +53,7 @@ public class CasoUsoDAOImpl implements CasoUsoDAO{
         currentSession.saveOrUpdate(caso_uso);
     }
 
+    /*Esta función elimina un caso de uso cuyo código le pasemos por parámetro*/
     @Override
     @Transactional
     public void deletedByIdCasoUso(int id) {
@@ -58,6 +63,7 @@ public class CasoUsoDAOImpl implements CasoUsoDAO{
         theQuery.executeUpdate();
     }
 
+    /*Esta función elimina un caso de uso cuyo nombre le pasemos por parámetro*/
     @Override
     @Transactional
     public void deletedByNombreCasoUso(String nombre_caso_uso) {
@@ -67,6 +73,7 @@ public class CasoUsoDAOImpl implements CasoUsoDAO{
         theQuery.executeUpdate();
     }
 
+    /*Esta funcion hace un SELECT * de todos los casos de uso cuyos valores sean como los que les pasemos por parámetros*/
     @Override
     public List<Caso_uso> findByJSONCasoUso(Caso_uso user) {
         Session currentSession = entityManager.unwrap(Session.class);

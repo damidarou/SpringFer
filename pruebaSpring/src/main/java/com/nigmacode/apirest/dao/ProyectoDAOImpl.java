@@ -20,7 +20,7 @@ public class ProyectoDAOImpl implements ProyectoDAO{
     @Autowired
     private EntityManager entityManager;
 
-
+    /*Esta función desarrolla un método que funciona como un SELECT * FROM Proyecto para obtener todos los proyectos*/
     @Override
     public List<Proyecto> findAll() {
         Session currentSession = entityManager.unwrap(Session.class);
@@ -30,6 +30,7 @@ public class ProyectoDAOImpl implements ProyectoDAO{
 
     }
 
+    /*Esta función desarrolla un método que funciona como un SELECT * para el proyecto cuyo código coincida con el que le pasamos*/
     @Override
     public Proyecto findById(int id) {
         Session currentSession = entityManager.unwrap(Session.class);
@@ -37,6 +38,7 @@ public class ProyectoDAOImpl implements ProyectoDAO{
         return proyecto;
     }
 
+//Esta función sirve para guardar o actualizar los datos de un proyecto/
     @Override
     @Transactional
     public void save(Proyecto proyecto) {
@@ -45,6 +47,7 @@ public class ProyectoDAOImpl implements ProyectoDAO{
 
     }
 
+//Esta función elimina un proyecto cuyo código le pasemos por parámetro/
     @Override
     @Transactional
     public void deleteById(int id) {
@@ -55,6 +58,7 @@ public class ProyectoDAOImpl implements ProyectoDAO{
 
     }
 
+    /*Esta función desarrolla un método que funciona como un SELECT * para el proyecto cuyo nombre coincida con el que le pasamos*/
     @Override
     public Proyecto getByNombre(String nombre_proyecto) {
         Session currentSession = entityManager.unwrap(Session.class);
@@ -64,6 +68,7 @@ public class ProyectoDAOImpl implements ProyectoDAO{
         return proyecto;
     }
 
+    /*Esta funcion hace un SELECT * de todos los proyecto cuyos valores sean como los que les pasemos por parámetros*/
     @Override
     public List<Proyecto> findByJSON(Proyecto proyecto) {
         Session currentSession = entityManager.unwrap(Session.class);

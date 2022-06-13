@@ -17,7 +17,7 @@ public class EjecutarDAOImpl implements EjecutarDAO{
     @Autowired
     EntityManager entityManager;
 
-
+    /*Esta función desarrolla un método que funciona como un SELECT * FROM ejecuta para obtener todos las ejecuciones*/
     @Override
     public List<Ejecutar> findAll() {
         Session currentSession = entityManager.unwrap(Session.class);
@@ -27,6 +27,7 @@ public class EjecutarDAOImpl implements EjecutarDAO{
         return ejecutar;
     }
 
+    /*Esta función desarrolla un método que funciona como un SELECT * para al ejecucion cuyo código coincida con el que le pasamos*/
     @Override
     public Ejecutar findById(int cod_ejecuta) {
         Session currentSession = entityManager.unwrap(Session.class);
@@ -36,6 +37,7 @@ public class EjecutarDAOImpl implements EjecutarDAO{
         return ejecutar;
     }
 
+    /*Esta función sirve para guardar o actualizar los datos de una ejecucion*/
     @Override
     @Transactional
     public void save(Ejecutar ejecutar) {
@@ -43,6 +45,7 @@ public class EjecutarDAOImpl implements EjecutarDAO{
         currentSession.saveOrUpdate(ejecutar);
     }
 
+    /*Esta funcion hace un SELECT * de todos las ejecuciones cuyos valores sean como los que les pasemos por parámetros*/
     @Override
     public List<Ejecutar> findByParameters(Ejecutar ejecutar) {
         Session currentSession = entityManager.unwrap(Session.class);
@@ -94,6 +97,7 @@ public class EjecutarDAOImpl implements EjecutarDAO{
         return ejecuta;
     }
 
+    /*Esta función elimina una ejecucion cuyo nombre le pasemos por parámetro*/
     @Override
     @Transactional
     public void deleteById(int cod_ejecuta) {

@@ -19,8 +19,8 @@ public class TestDAOImpl implements TestDAO{
     @Autowired
     private EntityManager entityManager;
 
+    /*Esta función desarrolla un método que funciona como un SELECT * FROM Test para obtener todos los tests*/
     @Override
-
     public List<Test> findAll() {
         Session currentSession = entityManager.unwrap(Session.class);
         Query<Test> theQuery = currentSession.createQuery("select t from Test t", Test.class);
@@ -30,6 +30,7 @@ public class TestDAOImpl implements TestDAO{
 
     }
 
+    /*Esta función desarrolla un método que funciona como un SELECT * para el test cuyo código coincida con el que le pasamos*/
     @Override
     public Test findById(int cod_test) {
         Session currentSession = entityManager.unwrap(Session.class);
@@ -39,6 +40,7 @@ public class TestDAOImpl implements TestDAO{
         return test;
     }
 
+    /*Esta función desarrolla un método que funciona como un SELECT * para el test cuyo nombre coincida con el que le pasamos*/
     @Override
     public Test findByName(String nombre){
         Session currentSession = entityManager.unwrap(Session.class);
@@ -48,6 +50,7 @@ public class TestDAOImpl implements TestDAO{
         return test;
     }
 
+    /*Esta funcion hace un SELECT * de todos los proyecto cuyos valores sean como los que les pasemos por parámetros*/
     @Override
     public List<Test> findByParameters (Test test) {
         Session currentSession = entityManager.unwrap(Session.class);
@@ -109,6 +112,7 @@ public class TestDAOImpl implements TestDAO{
         return test1;
     }
 
+//Esta función sirve para guardar o actualizar los datos de un test/
     @Override
     @Transactional
     public void save(Test test) {
@@ -117,6 +121,7 @@ public class TestDAOImpl implements TestDAO{
 
     }
 
+//Esta función elimina un test cuyo código le pasemos por parámetro/
     @Override
     @Transactional
     public void deleteById(int cod_test) {
