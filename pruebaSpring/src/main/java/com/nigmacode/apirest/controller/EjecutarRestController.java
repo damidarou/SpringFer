@@ -22,10 +22,10 @@ public class EjecutarRestController {
     private TestService testService;
 
     /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url
-    http://127.0.0.1:8080/api/users*/
+    http://127.0.0.1:8080/api/ejecutar para obtener todas las ejecuciones*/
     @GetMapping("/ejecutar")
     public List<Ejecutar> findAllEjecutar(){
-        //retornará todos los usuarios
+        //retornará todas las ejecuciones
         try {
             return ejecutarService.findAll();
         }catch (IllegalArgumentException err){
@@ -33,7 +33,8 @@ public class EjecutarRestController {
             return p;
         }
     }
-
+    /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url
+        http://127.0.0.1:8080/api/ejecutar mediante un Json*/
     @GetMapping("/ejecutar/params")
     public List<Ejecutar> findByParameters(@RequestBody Ejecutar ejecutar){
         List<Ejecutar> list = ejecutarService.findByParameters(ejecutar);
@@ -49,27 +50,26 @@ public class EjecutarRestController {
     }
 
 
-    /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url + el id de un usuario
-    http://127.0.0.1:8080/api/users/1*/
+    /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url + el id de una ejecucion
+    http://127.0.0.1:8080/api/ejecutar/1 para obtener una ejecución concreta mediante el Id*/
     @GetMapping("/ejecutar/{userId}")
-    public Ejecutar getEjecucion(@PathVariable int userId){
+    public Ejecutar getEjecuta(@PathVariable int userId){
         Ejecutar user = ejecutarService.findById(userId);
 
         if(user == null) {
             throw new RuntimeException("Ejecucion id not found -"+userId);
         }
-        //retornará al usuario con id pasado en la url
+        //retornará la ejecución con id pasado en la url
         return user;
     }
 
     /*Este método se hará cuando por una petición POST (como indica la anotación) se llame a la url
-    http://127.0.0.1:8080/api/users/  */
-
+    http://127.0.0.1:8080/api/ejecutar/ para publicar una ejecución */
     @PostMapping("/ejecutar")
-    public Ejecutar addUser(@RequestBody Ejecutar ejecutar) {
+    public Ejecutar addEjecutar(@RequestBody Ejecutar ejecutar) {
         ejecutar.setCod_ejecuta(0);
 
-        //Este metodo guardará al usuario enviado
+        //Este metodo guardará la ejecución
         User us = userService.findById(ejecutar.getId_user());
         Test ts = testService.findById(ejecutar.getId_test());
         if(us == null){
@@ -83,31 +83,31 @@ public class EjecutarRestController {
 
     }
     /*Este método se hará cuando por una petición PUT (como indica la anotación) se llame a la url
-    http://127.0.0.1:8080/api/users/  */
+    http://127.0.0.1:8080/api/ejecutar/  para modificar una ejecución*/
     @PutMapping("/ejecutar")
     public Ejecutar updateUser(@RequestBody Ejecutar ejecutar) {
         ejecutarService.save(ejecutar);
 
-        //este metodo actualizará al usuario enviado
+        //este metodo actualizará la ejecución enviada
 
         return ejecutar;
     }
 
     /*Este método se hará cuando por una petición DELETE (como indica la anotación) se llame a la url + id del usuario
-    http://127.0.0.1:8080/api/users/1  */
+    http://127.0.0.1:8080/api/ejecutar/1  para borrar la ejecución con ese id*/
 
-    @DeleteMapping("/ejecutar/{userId}")
-    public String deleteEjecucion(@PathVariable int userId) {
+    @DeleteMapping("/ejecutar/{ejecutaId}")
+    public String deleteEjecucion(@PathVariable int ejecutaId) {
 
-        Ejecutar ejecutar = ejecutarService.findById(userId);
+        Ejecutar ejecutar = ejecutarService.findById(ejecutaId);
 
         if(ejecutar == null) {
-            throw new RuntimeException("User id not found -"+userId);
+            throw new RuntimeException("User id not found -"+ejecutaId);
         }
 
-        ejecutarService.deleteById(userId);
+        ejecutarService.deleteById(ejecutaId);
 
         //Esto método, recibira el id de un usuario por URL y se borrará de la bd.
-        return "Deleted ejecucion id - "+userId;
+        return "Deleted ejecucion id - "+ejecutaId;
     }
 }

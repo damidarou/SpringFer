@@ -41,7 +41,7 @@ public class ProyectoRestController {
     }
 
     /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url + el id de un usuario
-    http://127.0.0.1:8080/api/Prueba/1*/
+    http://127.0.0.1:8080/api/proyecto/1*/
     @GetMapping("/proyecto/{proyectId}")
     public Proyecto getProyecto(@PathVariable int proyectId){
         Proyecto proyecto = proyectoService.findById(proyectId);
