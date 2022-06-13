@@ -37,13 +37,15 @@ public class TestRestController {
     private CasoService casoService;
 
     /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url
-    http://127.0.0.1:8080/api/users*/
+        http://127.0.0.1:8080/api/test para obtener todos test*/
     @GetMapping("/test")
     public List<Test> findAll(){
-        //retornará todos los usuarios
+//retornará todos los usuarios
         return testService.findAll();
     }
 
+    /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url
+           http://127.0.0.1:8080/api/test mediante un Json*/
     @GetMapping("/test/params")
     public List<Test> findByParameters(@RequestBody Test test){
         List<Test> list = testService.findByParameters(test);
@@ -56,6 +58,8 @@ public class TestRestController {
         return list;
     }
 
+    /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url + el id de una ejecucion
+        http://127.0.0.1:8080/api/test/nombre1 para obtener un test concreto mediante el nombre*/
     @GetMapping("/test/{nombre}")
     public Test getTest(@PathVariable String nombre){
         Test user = testService.findByName(nombre);
@@ -63,12 +67,10 @@ public class TestRestController {
         if(user == null) {
             throw new RuntimeException("Test name not found -"+nombre);
         }
-        //retornará al usuario con id pasado en la url
         return user;
     }
-
-    /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url + el id de un usuario
-    http://127.0.0.1:8080/api/users/1*/
+    /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url + el id de una ejecucion
+            http://127.0.0.1:8080/api/test/ID/1 para obtener un test concreto mediante el ID*/
     @GetMapping("/test/ID/{userId}")
     public Test getUser(@PathVariable int userId){
         Test user = testService.findById(userId);
@@ -76,20 +78,20 @@ public class TestRestController {
         if(user == null) {
             throw new RuntimeException("Test id not found -"+userId);
         }
-        //retornará al usuario con id pasado en la url
         else {
             return user;
         }
     }
 
-    /*Este método se hará cuando por una petición POST (como indica la anotación) se llame a la url
-    http://127.0.0.1:8080/api/users/  */
+/*Este método se hará cuando por una petición POST (como indica la anotación) se llame a la url
+       http://127.0.0.1:8080/api/test/ para publicar un test */
 
     @PostMapping("/test")
     public Test addUser(@RequestBody Test test) {
         test.setCod_test(0);
-
-        //Este metodo guardará al usuario enviado
+/*Para crear un nuevo test, no debe incumplir ninguna restricción como la de la clave foránea.
+El test no puede hacer referencia a un usuario o a un caso de uso que no exista.
+*/
         User us = userService.findById(test.getCod_usuario());
         Caso_uso cs = casoService.findById(test.getId_caso_uso());
         if(us == null){
@@ -104,20 +106,17 @@ public class TestRestController {
         return test;
 
     }
-    /*Este método se hará cuando por una petición PUT (como indica la anotación) se llame a la url
-    http://127.0.0.1:8080/api/users/  */
+    /*Este método hace un PUT con el que actualizará el test que le indiquemos por su cod_test.
+    En caso de no indicarle el cod_test funcionará como un POST e insertará un nuevo test.
+     http://127.0.0.1:8080/api/test/
+    */
     @PutMapping("/test")
     public Test updateUser(@RequestBody Test test) {
-
         testService.save(test);
-
-        //este metodo actualizará al usuario enviado
-
         return test;
     }
 
-    /*Este método se hará cuando por una petición DELETE (como indica la anotación) se llame a la url + id del usuario
-    http://127.0.0.1:8080/api/users/1  */
+/*Este método hace un DELETE con el que borra el test cuyo cod_test coincida con el que le pasemos por parámetro   http://127.0.0.1:8080/api/ejecutar/1*/
 
     @DeleteMapping("/test/{userId}")
     public String deleteTest(@PathVariable int userId) {
@@ -125,12 +124,10 @@ public class TestRestController {
         Test test = testService.findById(userId);
 
         if(test == null) {
-            throw new RuntimeException("User id not found -"+userId);
+            throw new RuntimeException("Test id not found -"+userId);
         }
-
         testService.deleteById(userId);
 
-        //Esto método, recibira el id de un usuario por URL y se borrará de la bd.
         return "Deleted test id - "+userId;
     }
 }
