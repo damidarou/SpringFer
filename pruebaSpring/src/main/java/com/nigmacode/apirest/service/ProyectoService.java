@@ -1,15 +1,14 @@
 package com.nigmacode.apirest.service;
 import java.util.List;
+import java.util.Optional;
 
 import com.nigmacode.apirest.entity.Proyecto;
 public interface ProyectoService {
     public List<Proyecto> findAll();
 
-    public Proyecto findById(int id);
-    public void save (Proyecto user);
+    public Optional<Proyecto> findById(int id);
+    public void save (Proyecto proyecto);
     public void deleteById(int id);
+    public List<Proyecto> findByNombre(String nombre);
 
-    public Proyecto getByNombre(String nombre_proyecto);
-
-    public List<Proyecto> findByJSON(Proyecto user);
 }

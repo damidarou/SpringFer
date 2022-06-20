@@ -10,6 +10,7 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.lang.Nullable;
 
 //Proyecto pre dynamic query
 //Proyecto post dynamic query
@@ -23,7 +24,7 @@ public class Proyecto {
     private int cod_proyecto;
 
     @Column(name = "nombre_proyecto")
-    private String nombre_proyecto;
+    private String nombre;
 
     @Column(name = "fecha_creacion_proyecto", updatable = false)
     @CreationTimestamp
@@ -36,7 +37,7 @@ public class Proyecto {
     @Column(name = "version_proyecto")
     private double version_proyecto;
 
-    @Column(name = "cod_usuario",updatable = false,insertable = false)
+    @Column(name = "cod_usuario", nullable = false)
     private int cod_usuario;
 
 
@@ -55,7 +56,7 @@ public class Proyecto {
                     Date fecha_creacion_proyecto, Date fecha_modificacion_proyecto,
                     double version_proyecto, int cod_usuario) {
         this.cod_proyecto = cod_proyecto;
-        this.nombre_proyecto = nombre_proyecto;
+        this.nombre = nombre_proyecto;
         this.fecha_creacion_proyecto = fecha_creacion_proyecto;
         this.fecha_modificacion_proyecto = fecha_modificacion_proyecto;
         this.version_proyecto = version_proyecto;
@@ -87,11 +88,11 @@ public class Proyecto {
     }
 
     public String getNombre_proyecto() {
-        return nombre_proyecto;
+        return nombre;
     }
 
     public void setNombre_proyecto(String nombre_proyecto) {
-        this.nombre_proyecto = nombre_proyecto;
+        this.nombre = nombre_proyecto;
     }
 
     public Date getFecha_creacion_proyecto() {
@@ -131,7 +132,7 @@ public class Proyecto {
     public String toString() {
         return "Proyecto{" +
                 "cod_proyecto=" + cod_proyecto +
-                ", nombre_proyecto='" + nombre_proyecto + '\'' +
+                ", nombre_proyecto='" + nombre + '\'' +
                 ", fecha_creacion_proyecto=" + fecha_creacion_proyecto +
                 ", fecha_modificacion_proyecto=" + fecha_modificacion_proyecto +
                 ", version_proyecto=" + version_proyecto +

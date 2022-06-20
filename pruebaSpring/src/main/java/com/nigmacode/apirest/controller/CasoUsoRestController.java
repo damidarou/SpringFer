@@ -5,12 +5,12 @@ import com.nigmacode.apirest.entity.Proyecto;
 import com.nigmacode.apirest.entity.User;
 import com.nigmacode.apirest.service.CasoService;
 import com.nigmacode.apirest.service.ProyectoService;
-import com.nigmacode.apirest.service.TestService;
 import com.nigmacode.apirest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CasoUsoRestController {
     @Autowired
@@ -53,7 +53,7 @@ public class CasoUsoRestController {
     public Caso_uso addUserCasoUso(@RequestBody Caso_uso caso){
         caso.setCod_caso_uso(0);
         User us = userService.findById(caso.getCod_usuario());
-        Proyecto ps = proyectoService.findById(caso.getId_proyecto());
+        Optional<Proyecto> ps = proyectoService.findById(caso.getId_proyecto());
         if(us == null){
             throw new RuntimeException("El usuario "+caso.getCod_usuario()+" no existe");
         }
