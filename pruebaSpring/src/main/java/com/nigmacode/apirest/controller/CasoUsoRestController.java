@@ -1,8 +1,9 @@
 package com.nigmacode.apirest.controller;
 
-import com.nigmacode.apirest.entity.Caso_uso;
+import com.nigmacode.apirest.entity.CasoUso;
 import com.nigmacode.apirest.entity.Proyecto;
 import com.nigmacode.apirest.entity.User;
+import com.nigmacode.apirest.repository.CasoUsoRepository;
 import com.nigmacode.apirest.service.CasoService;
 import com.nigmacode.apirest.service.ProyectoService;
 import com.nigmacode.apirest.service.UserService;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@RestController
+@RequestMapping("/api") //esta sera la raiz de la url, es decir http://127.0.0.1:8080/api/
+
 public class CasoUsoRestController {
     @Autowired
     private CasoService casoService;
@@ -20,12 +24,15 @@ public class CasoUsoRestController {
     @Autowired
     private ProyectoService proyectoService;
 
+    @Autowired
+    CasoUsoRepository casoUsoRepository;
+
     /*Este método ser hará cuando por una petición GET(como indica la anotacion)
     se llame a la url http://127.0.0.1:8080/api/caso
     Esta funcion llama a todos los casos de uso
     */
     @GetMapping("/caso")
-    public List<Caso_uso> findAllCasoUso() {
+    public List<CasoUso> findAllCasoUso() {
         //retornará todos los casos
         return casoService.findAll();
     }
@@ -35,8 +42,8 @@ public class CasoUsoRestController {
 
     */
     @GetMapping("/caso/{casoID}")
-    public Caso_uso getUserCasoUso(@PathVariable int casoID){
-        Caso_uso caso = casoService.findById(casoID);
+    public Optional<CasoUso> getUserCasoUso(@PathVariable int casoID){
+        Optional<CasoUso> caso = casoService.findById(casoID);
 
         if(caso==null) {
             throw new RuntimeException("Caso id not found " +casoID);
@@ -45,12 +52,25 @@ public class CasoUsoRestController {
         return caso;
     }
 
+    @GetMapping("/caso/nombre/{nombre}")
+    public List<CasoUso> findByNombre(@PathVariable String nombre_caso_uso) {
+        List<CasoUso> casoUsos = casoService.findByNombre(nombre_caso_uso);
+
+        for (CasoUso casoUso : casoService.findByNombre(nombre_caso_uso)) {
+                casoUso.setTests(null);
+        }
+
+        if (casoUsos == null) {
+            throw new RuntimeException("Project not fount-" + nombre_caso_uso);
+        }
+        return casoUsos;
+    }
 
     /*Este método ser hará cuando por una petición Post(como indica la anotacion)
     se llame a la url http://127.0.0.1:8080/api/caso
     */
     @PostMapping("/caso")
-    public Caso_uso addUserCasoUso(@RequestBody Caso_uso caso){
+    public CasoUso addUserCasoUso(@RequestBody CasoUso caso){
         caso.setCod_caso_uso(0);
         User us = userService.findById(caso.getCod_usuario());
         Optional<Proyecto> ps = proyectoService.findById(caso.getId_proyecto());
@@ -73,7 +93,7 @@ public class CasoUsoRestController {
     se llame a la url http://127.0.0.1:8080/api/caso
     */
     @PutMapping("/caso")
-    public Caso_uso updateCasoUso(@RequestBody Caso_uso caso) {
+    public CasoUso updateCasoUso(@RequestBody CasoUso caso) {
         //este metodo actualizará al caso enviado
         casoService.save(caso);
         return caso;
@@ -84,7 +104,7 @@ public class CasoUsoRestController {
     */
     @DeleteMapping("/caso/{casoID}")
     public String deleteCaso(@PathVariable int casoID){
-        Caso_uso caso = casoService.findById(casoID);
+        Optional<CasoUso> caso = casoService.findById(casoID);
 
         if (caso==null){
             throw new RuntimeException("Caso id not found "+casoID);
@@ -99,9 +119,9 @@ public class CasoUsoRestController {
     Este metodo busca en funcion de un Json los casos de uso que mas se parezcan
     */
     @GetMapping("/caso/parameters")
-    public List<Caso_uso> getByJSONCasoUso(@RequestBody Caso_uso caso) {
-        List<Caso_uso> list = casoService.findByJSON(caso);
-        for (Caso_uso t : list) {
+    public List<CasoUso> getByJSONCasoUso(@RequestBody CasoUso caso) {
+        List<CasoUso> list = casoService.findByExample(caso);
+        for (CasoUso t : list) {
             t.toString();
         }
         if(list.isEmpty()){

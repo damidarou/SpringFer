@@ -1,6 +1,5 @@
 package com.nigmacode.apirest.controller;
 
-import com.nigmacode.apirest.entity.Caso_uso;
 import com.nigmacode.apirest.entity.Proyecto;
 import com.nigmacode.apirest.entity.User;
 import com.nigmacode.apirest.service.UserService;

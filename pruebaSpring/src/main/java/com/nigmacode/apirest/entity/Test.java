@@ -1,13 +1,6 @@
 package com.nigmacode.apirest.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.ForeignKey;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -43,7 +36,7 @@ public class Test {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cod_caso_uso", referencedColumnName = "cod_caso_uso", insertable=false, updatable=false)
     @JsonIgnoreProperties("tests")
-    private Caso_uso caso_uso;
+    private CasoUso caso_uso;
     public Test(){}
 
     //Constructor de Test usando como parametros todas las columnas creadas

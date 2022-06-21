@@ -1,7 +1,7 @@
 
 package com.nigmacode.apirest.controller;
 
-import com.nigmacode.apirest.entity.Caso_uso;
+import com.nigmacode.apirest.entity.CasoUso;
 import com.nigmacode.apirest.entity.Proyecto;
 import com.nigmacode.apirest.entity.User;
 import com.nigmacode.apirest.repository.UserRepository;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +34,7 @@ public class ProyectoRestController {
 
         try {
             for (Proyecto proyectos : proyectoService.findAll()) {
-                for (Caso_uso casos : proyectos.getCaso_usos()) {
+                for (CasoUso casos : proyectos.getCaso_usos()) {
                     casos.setTests(null);
 
                 }
@@ -55,7 +54,7 @@ public class ProyectoRestController {
         Optional<Proyecto> proyecto = proyectoService.findById(proyectId);
 
         for (Proyecto proyectos : proyectoService.findAll()) {
-            for (Caso_uso casos : proyectos.getCaso_usos()) {
+            for (CasoUso casos : proyectos.getCaso_usos()) {
                 casos.setTests(null);
 
             }
@@ -75,7 +74,7 @@ public class ProyectoRestController {
         List<Proyecto> proyecto = proyectoService.findByNombre(nombre);
 
         for (Proyecto proyectos : proyectoService.findByNombre(nombre)) {
-            for (Caso_uso casos : proyectos.getCaso_usos()) {
+            for (CasoUso casos : proyectos.getCaso_usos()) {
                 casos.setTests(null);
 
             }
@@ -130,7 +129,7 @@ public class ProyectoRestController {
         List<Proyecto> list = proyectoService.findByProyecto(proyecto);
 
         for (Proyecto proyectos : proyectoService.findByProyecto(proyecto)) {
-            for (Caso_uso casos : proyectos.getCaso_usos()) {
+            for (CasoUso casos : proyectos.getCaso_usos()) {
                 casos.setTests(null);
             }
             proyectos.setUsuario(null);

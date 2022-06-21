@@ -1,16 +1,13 @@
 package com.nigmacode.apirest.entity;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.lang.Nullable;
 
 //Proyecto pre dynamic query
 //Proyecto post dynamic query
@@ -43,7 +40,7 @@ public class Proyecto {
 
     @OneToMany(mappedBy = "proyecto")
     @JsonIgnoreProperties("proyecto")
-    private List<Caso_uso> caso_usos;
+    private List<CasoUso> caso_usos;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cod_usuario", referencedColumnName = "cod_usuario", insertable=false, updatable=false)
@@ -63,11 +60,11 @@ public class Proyecto {
         this.cod_usuario = cod_usuario;
     }
 
-    public List<Caso_uso> getCaso_usos() {
+    public List<CasoUso> getCaso_usos() {
         return caso_usos;
     }
 
-    public void setCaso_usos(List<Caso_uso> caso_usos) {
+    public void setCaso_usos(List<CasoUso> caso_usos) {
         this.caso_usos = caso_usos;
     }
 

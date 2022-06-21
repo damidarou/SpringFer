@@ -1,20 +1,16 @@
 package com.nigmacode.apirest.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "caso_uso")
-public class Caso_uso {
+public class CasoUso {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -22,7 +18,7 @@ public class Caso_uso {
     private Integer cod_caso_uso;
 
     @Column(name="nombre_caso_uso")
-    private String nombre_caso_uso;
+    private String nombre;
 
     @Column(name="descripcion")
     private String descripcion;
@@ -54,12 +50,12 @@ public class Caso_uso {
 
 
 
-    public Caso_uso(){}
+    public CasoUso(){}
 
-    public Caso_uso(Integer cod_caso_uso, String nombre_caso_uso, String descripcion, Integer id_proyecto, Integer cod_usuario,
-                    Date fecha_creacion_caso_uso, Date fecha_modificacion_caso_uso) {
+    public CasoUso(Integer cod_caso_uso, String nombre, String descripcion, Integer id_proyecto, Integer cod_usuario,
+                   Date fecha_creacion_caso_uso, Date fecha_modificacion_caso_uso) {
         this.cod_caso_uso = cod_caso_uso;
-        this.nombre_caso_uso = nombre_caso_uso;
+        this.nombre = nombre;
         this.descripcion = descripcion;
         this.id_proyecto = id_proyecto;
         this.cod_usuario = cod_usuario;
@@ -84,12 +80,12 @@ public class Caso_uso {
         this.cod_caso_uso = cod_caso_uso;
     }
 
-    public String getNombre_caso_uso() {
-        return nombre_caso_uso;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombre_caso_uso(String nombre_caso_uso) {
-        this.nombre_caso_uso = nombre_caso_uso;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getDescripcion() {
@@ -136,7 +132,7 @@ public class Caso_uso {
     public String toString() {
         return "User{" +
                 "cod_caso_uso=" + cod_caso_uso +
-                ", nombre_caso_uso='" + nombre_caso_uso + '\'' +
+                ", nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", fecha_creacion_caso_uso=" + fecha_creacion_caso_uso +
                 ", fecha_modificacion=" + fecha_modificacion_caso_uso +

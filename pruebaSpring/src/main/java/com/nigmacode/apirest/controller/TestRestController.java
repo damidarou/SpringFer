@@ -1,14 +1,10 @@
 package com.nigmacode.apirest.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.nigmacode.apirest.entity.*;
-import com.nigmacode.apirest.entity.estado;
 import com.nigmacode.apirest.service.*;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.persistence.EntityManager;
 
 //Indiciamos que es un controlador rest
 @RestController
@@ -93,7 +87,7 @@ public class TestRestController {
 El test no puede hacer referencia a un usuario o a un caso de uso que no exista.
 */
         User us = userService.findById(test.getCod_usuario());
-        Caso_uso cs = casoService.findById(test.getId_caso_uso());
+        Optional<CasoUso> cs = casoService.findById(test.getId_caso_uso());
         if(us == null){
             throw new RuntimeException("El usuario "+test.getCod_usuario()+" no existe");
         }

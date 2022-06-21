@@ -1,18 +1,16 @@
 package com.nigmacode.apirest.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import com.nigmacode.apirest.entity.Caso_uso;
+import com.nigmacode.apirest.entity.CasoUso;
 
 public interface CasoService {
 
-    public List<Caso_uso> findAll();
-
-    public Caso_uso findById(int id);
-
-    public void save(Caso_uso caso);
-    public Caso_uso findByNombre(String nombre_caso_uso);
+    public List<CasoUso> findAll();
+    public Optional<CasoUso> findById(int id);
+    public void save(CasoUso caso);
+    public List<CasoUso> findByNombre(String nombre_caso_uso);
     public void deleteById(int id);
-
-    List<Caso_uso> findByJSON(Caso_uso user);
+    public List<CasoUso> findByExample(CasoUso user);
 }
