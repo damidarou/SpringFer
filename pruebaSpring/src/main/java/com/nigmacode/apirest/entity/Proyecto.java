@@ -21,7 +21,7 @@ public class Proyecto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cod_proyecto")
-    private int cod_proyecto;
+    private Integer cod_proyecto;
 
     @Column(name = "nombre_proyecto")
     private String nombre;
@@ -38,7 +38,7 @@ public class Proyecto {
     private double version_proyecto;
 
     @Column(name = "cod_usuario", nullable = false)
-    private int cod_usuario;
+    private Integer cod_usuario;
 
 
     @OneToMany(mappedBy = "proyecto")
@@ -52,9 +52,9 @@ public class Proyecto {
 
     public Proyecto() {}
 
-    public Proyecto(int cod_proyecto, String nombre_proyecto,
+    public Proyecto(Integer cod_proyecto, String nombre_proyecto,
                     Date fecha_creacion_proyecto, Date fecha_modificacion_proyecto,
-                    double version_proyecto, int cod_usuario) {
+                    double version_proyecto, Integer cod_usuario) {
         this.cod_proyecto = cod_proyecto;
         this.nombre = nombre_proyecto;
         this.fecha_creacion_proyecto = fecha_creacion_proyecto;
@@ -79,11 +79,11 @@ public class Proyecto {
         this.usuario = usuario;
     }
 
-    public int getCod_proyecto() {
+    public Integer getCod_proyecto() {
         return cod_proyecto;
     }
 
-    public void setCod_proyecto(int cod_proyecto) {
+    public void setCod_proyecto(Integer cod_proyecto) {
         this.cod_proyecto = cod_proyecto;
     }
 
@@ -119,11 +119,11 @@ public class Proyecto {
         this.version_proyecto = version_proyecto;
     }
 
-    public int getCod_usuario() {
+    public Integer getCod_usuario() {
         return cod_usuario;
     }
 
-    public void setCod_usuario(int cod_usuario) {
+    public void setCod_usuario(Integer cod_usuario) {
         this.cod_usuario = cod_usuario;
     }
 

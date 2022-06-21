@@ -124,22 +124,22 @@ public class ProyectoRestController {
     }
 
     //Este método realiza un GET de todos los proyectos cuyos datos coincidan con los parámetros que le indiquemos       http://127.0.0.1:8080/api/proyecto/find
-    /*
-    @GetMapping("/proyecto/find")
-    public List<Proyecto> getByJSON(@RequestBody Proyecto Proyecto) {
-        List<Proyecto> list = proyectoService.findByProyecto(Proyecto);
 
-        for (Proyecto t : list) {
-            for (Caso_uso caso_uso : t.getCaso_usos()) {
-                caso_uso.setTests(null);
+    @GetMapping("/proyecto/find")
+    public List<Proyecto> findByProyecto(@RequestBody Proyecto proyecto) {
+        List<Proyecto> list = proyectoService.findByProyecto(proyecto);
+
+        for (Proyecto proyectos : proyectoService.findByProyecto(proyecto)) {
+            for (Caso_uso casos : proyectos.getCaso_usos()) {
+                casos.setTests(null);
             }
-            t.setUsuario(null);
-            t.toString();
+            proyectos.setUsuario(null);
         }
-        if (list.isEmpty()) {
-            throw new RuntimeException("Project not found");
+
+        if (proyecto == null) {
+            throw new RuntimeException("Project not fount-" + proyecto.getNombre_proyecto());
         }
         return list;
     }
-    */
+
 }

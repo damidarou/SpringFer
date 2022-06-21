@@ -19,7 +19,7 @@ public class Caso_uso {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="cod_caso_uso")
-    private int cod_caso_uso;
+    private Integer cod_caso_uso;
 
     @Column(name="nombre_caso_uso")
     private String nombre_caso_uso;
@@ -36,10 +36,10 @@ public class Caso_uso {
     private Date fecha_modificacion_caso_uso;
 
     @Column(name="cod_proyecto")
-    private int id_proyecto;
+    private Integer id_proyecto;
 
     @Column(name="cod_usuario")
-    private int cod_usuario;
+    private Integer cod_usuario;
 
     @OneToMany(mappedBy = "caso_uso")
     @JsonIgnoreProperties("caso_uso")
@@ -56,7 +56,7 @@ public class Caso_uso {
 
     public Caso_uso(){}
 
-    public Caso_uso(int cod_caso_uso, String nombre_caso_uso, String descripcion, int id_proyecto, int cod_usuario,
+    public Caso_uso(Integer cod_caso_uso, String nombre_caso_uso, String descripcion, Integer id_proyecto, Integer cod_usuario,
                     Date fecha_creacion_caso_uso, Date fecha_modificacion_caso_uso) {
         this.cod_caso_uso = cod_caso_uso;
         this.nombre_caso_uso = nombre_caso_uso;
@@ -76,11 +76,11 @@ public class Caso_uso {
         this.tests = tests;
     }
 
-    public int getCod_caso_uso() {
+    public Integer getCod_caso_uso() {
         return cod_caso_uso;
     }
 
-    public void setCod_caso_uso(int cod_caso_uso) {
+    public void setCod_caso_uso(Integer cod_caso_uso) {
         this.cod_caso_uso = cod_caso_uso;
     }
 
@@ -116,19 +116,19 @@ public class Caso_uso {
         this.fecha_modificacion_caso_uso = fecha_modificacion_caso_uso;
     }
 
-    public int getId_proyecto() {
+    public Integer getId_proyecto() {
         return id_proyecto;
     }
 
-    public void setId_proyecto(int cod_proyecto) {
+    public void setId_proyecto(Integer cod_proyecto) {
         this.id_proyecto = cod_proyecto;
     }
 
-    public int getCod_usuario() {
+    public Integer getCod_usuario() {
         return cod_usuario;
     }
 
-    public void setCod_usuario(int cod_usuario) {
+    public void setCod_usuario(Integer cod_usuario) {
         this.cod_usuario = cod_usuario;
     }
 
