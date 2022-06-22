@@ -38,7 +38,7 @@ public class User {
     @JsonIgnoreProperties("usuarios")
     private Perfil perfil;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     @JsonIgnoreProperties("usuario")
     List<Proyecto> proyectos;
 

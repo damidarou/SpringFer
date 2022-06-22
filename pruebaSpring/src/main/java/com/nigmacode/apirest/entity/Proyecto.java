@@ -42,7 +42,7 @@ public class Proyecto {
     @JsonIgnoreProperties("proyecto")
     private List<CasoUso> caso_usos;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cod_usuario", referencedColumnName = "cod_usuario", insertable=false, updatable=false)
     @JsonIgnoreProperties("proyectos")
     private User usuario;
