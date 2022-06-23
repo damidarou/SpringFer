@@ -1,7 +1,12 @@
 package com.nigmacode.apirest.controller;
 
+import com.nigmacode.apirest.entity.CasoUso;
 import com.nigmacode.apirest.entity.Proyecto;
+import com.nigmacode.apirest.entity.Test;
 import com.nigmacode.apirest.entity.User;
+import com.nigmacode.apirest.service.CasoService;
+import com.nigmacode.apirest.service.ProyectoService;
+import com.nigmacode.apirest.service.TestService;
 import com.nigmacode.apirest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +24,12 @@ public class UserRestController {
     //Inyectamos el servicio para poder hacer uso de el
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private ProyectoService proyectoService;
+    @Autowired
+    private CasoService casoService;
+    @Autowired
+    private TestService testService;
     /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url
     http://127.0.0.1:8080/api/users*/
     @GetMapping("/users")
@@ -103,6 +113,19 @@ public class UserRestController {
         if(user == null) {
             throw new RuntimeException("User id not found -"+userId);
         }
+        for (Proyecto proyecto : user.get().getProyectos()) {
+            proyecto.setUsuario(null);
+            proyecto.setCod_usuario(null);
+            proyectoService.save(proyecto);
+            for (CasoUso casoUso:proyecto.getCaso_usos()) {
+                casoUso.setCod_usuario(null);
+                casoService.save(casoUso);
+                for (Test test:casoUso.getTests()) {
+                    test.setCod_usuario(null);
+                    testService.save(test);
+                }
+            }
+        }
 
         userService.deleteById(userId);
 
@@ -112,7 +135,7 @@ public class UserRestController {
     @GetMapping("/users/find")
     public List<User> buscar(@RequestBody User user){
         //retornará todos los usuarios
-        return userService.buscar(user);
+        return userService.findByExample(user);
     }
 
 }

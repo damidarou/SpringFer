@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    public List<User> buscar(User user){
+    public List<User> findByExample(User user){
         Example<User> userExample= Example.of(user);
         List<User> users = userRepository.findAll(userExample);
         return users;

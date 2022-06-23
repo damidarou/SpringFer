@@ -40,6 +40,10 @@ public class User {
     @JsonIgnoreProperties("usuario")
     List<Proyecto> proyectos;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("user")
+
+
     public List<Proyecto> getProyectos() {
         return proyectos;
     }

@@ -19,8 +19,6 @@ public class Perfil {
 /*
     @OneToMany(mappedBy = "User", fetch = FetchType.LAZY, orphanRemoval = false)
     private List<User> users = new ArrayList<>();
-
-
  */
 
     @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)

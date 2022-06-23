@@ -38,7 +38,7 @@ public class Proyecto {
     private Integer cod_usuario;
 
 
-    @OneToMany(mappedBy = "proyecto", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "proyecto", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnoreProperties("proyecto")
     private List<CasoUso> caso_usos;
 

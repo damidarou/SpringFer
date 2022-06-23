@@ -35,7 +35,7 @@ public class TestServiceImpl implements TestService{
     }
 
     @Override
-    public List<Test> findByParameters(Test test) {
+    public List<Test> findByExample(Test test) {
         Example<Test> testExample= Example.of(test);
         List<Test> tests = testRepository.findAll(testExample);
         return tests;

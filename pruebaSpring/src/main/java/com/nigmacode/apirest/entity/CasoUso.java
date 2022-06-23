@@ -37,18 +37,14 @@ public class CasoUso {
     @Column(name="cod_usuario")
     private Integer cod_usuario;
 
-    @OneToMany(mappedBy = "caso_uso", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "caso_uso", fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnoreProperties("caso_uso")
     private List<Test> tests;
-
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cod_proyecto", referencedColumnName = "cod_proyecto", insertable=false, updatable=false)
     @JsonIgnoreProperties("caso_usos")
     private Proyecto proyecto;
-
-
-
 
     public CasoUso(){}
 
@@ -62,7 +58,6 @@ public class CasoUso {
         this.fecha_creacion_caso_uso = fecha_creacion_caso_uso;
         this.fecha_modificacion_caso_uso = fecha_modificacion_caso_uso;
     }
-
 
     public List<Test> getTests() {
         return tests;

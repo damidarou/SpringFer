@@ -33,8 +33,15 @@ public class Ejecutar {
     @Column(name = "resultado")
     private estado resultado;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cod_usuario", referencedColumnName = "cod_usuario", insertable=false, updatable=false)
+    @JsonIgnoreProperties("user")
+    private User user;
 
-
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cod_test",referencedColumnName = "cod_test",insertable = false,updatable = false)
+    @JsonIgnoreProperties("ejecutarList")
+    private Test test;
     public Ejecutar() {
 
     }
@@ -46,8 +53,6 @@ public class Ejecutar {
         this.fecha_modificacion_test = fecha_modificacion_test;
         this.resultado = resultado;
     }
-
-
 
     public int getCod_ejecuta() {
         return cod_ejecuta;

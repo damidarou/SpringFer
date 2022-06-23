@@ -38,7 +38,7 @@ public class EjecutarRestController {
         http://127.0.0.1:8080/api/ejecutar mediante un Json*/
     @GetMapping("/ejecutar/params")
     public List<Ejecutar> findByParameters(@RequestBody Ejecutar ejecutar){
-        List<Ejecutar> list = ejecutarService.findByParameters(ejecutar);
+        List<Ejecutar> list = ejecutarService.findByExample(ejecutar);
         for (Ejecutar t :list) {
             t.toString();
         }
@@ -54,8 +54,8 @@ public class EjecutarRestController {
     /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url + el id de una ejecucion
     http://127.0.0.1:8080/api/ejecutar/1 para obtener una ejecución concreta mediante el Id*/
     @GetMapping("/ejecutar/{userId}")
-    public Ejecutar getEjecuta(@PathVariable int userId){
-        Ejecutar user = ejecutarService.findById(userId);
+    public Optional<Ejecutar> getEjecuta(@PathVariable int userId){
+        Optional<Ejecutar> user = ejecutarService.findById(userId);
 
         if(user == null) {
             throw new RuntimeException("Ejecucion id not found -"+userId);
@@ -100,7 +100,7 @@ public class EjecutarRestController {
     @DeleteMapping("/ejecutar/{ejecutaId}")
     public String deleteEjecucion(@PathVariable int ejecutaId) {
 
-        Ejecutar ejecutar = ejecutarService.findById(ejecutaId);
+        Optional<Ejecutar> ejecutar = ejecutarService.findById(ejecutaId);
 
         if(ejecutar == null) {
             throw new RuntimeException("User id not found -"+ejecutaId);

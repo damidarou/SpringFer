@@ -3,6 +3,7 @@ package com.nigmacode.apirest.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -14,7 +15,7 @@ public class Test {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="cod_test")
-    private int cod_test;
+    private Integer cod_test;
 
     @Column(name="nombre")
     private String nombre;
@@ -33,14 +34,19 @@ public class Test {
     private int cod_usuario;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cod_caso_uso", referencedColumnName = "cod_caso_uso", insertable=false, updatable=false)
     @JsonIgnoreProperties("tests")
     private CasoUso caso_uso;
+
+    @OneToMany(mappedBy = "test", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("test")
+    private List<Ejecutar> ejecutarList;
+
     public Test(){}
 
     //Constructor de Test usando como parametros todas las columnas creadas
-    public Test(int cod_test, String nombre, String objetivo, int id_caso_uso, int cod_usuario, estado estado) {
+    public Test(Integer cod_test, String nombre, String objetivo, int id_caso_uso, Integer cod_usuario, estado estado) {
         this.cod_test = cod_test;
         this.nombre = nombre;
         this.objetivo = objetivo;
@@ -50,11 +56,11 @@ public class Test {
     }
 
     //Estos son los getters, setters y el toString que se generaron para cada columna
-    public int getCod_test() {
+    public Integer getCod_test() {
         return cod_test;
     }
 
-    public void setCod_test(int cod_test) {
+    public void setCod_test(Integer cod_test) {
         this.cod_test = cod_test;
     }
 
@@ -88,11 +94,11 @@ public class Test {
         this.id_caso_uso = id_caso_uso;
     }
 
-    public int getCod_usuario() {
+    public Integer getCod_usuario() {
         return cod_usuario;
     }
 
-    public void setCod_usuario(int cod_usuario) {
+    public void setCod_usuario(Integer cod_usuario) {
         this.cod_usuario = cod_usuario;
     }
 

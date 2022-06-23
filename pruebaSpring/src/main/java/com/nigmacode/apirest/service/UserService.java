@@ -17,5 +17,5 @@ public interface UserService {
 
     public List<User> findByUsername(String username);
 
-    public List<User> buscar(User user);
+    public List<User> findByExample(User user);
 }

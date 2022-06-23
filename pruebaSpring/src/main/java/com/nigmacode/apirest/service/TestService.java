@@ -17,6 +17,6 @@ public interface TestService {
 
    public Test findByNombre(String nombre);
 
-    public List<Test> findByParameters(Test test);
+    public List<Test> findByExample(Test test);
 }
 

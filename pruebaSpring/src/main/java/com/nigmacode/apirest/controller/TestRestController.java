@@ -42,7 +42,7 @@ public class TestRestController {
            http://127.0.0.1:8080/api/test mediante un Json*/
     @GetMapping("/test/params")
     public List<Test> findByParameters(@RequestBody Test test){
-        List<Test> list = testService.findByParameters(test);
+        List<Test> list = testService.findByExample(test);
         for (Test t :list) {
             t.toString();
         }

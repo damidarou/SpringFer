@@ -126,9 +126,9 @@ public class ProyectoRestController {
 
     @GetMapping("/proyecto/find")
     public List<Proyecto> findByProyecto(@RequestBody Proyecto proyecto) {
-        List<Proyecto> list = proyectoService.findByProyecto(proyecto);
+        List<Proyecto> list = proyectoService.findByExample(proyecto);
 
-        for (Proyecto proyectos : proyectoService.findByProyecto(proyecto)) {
+        for (Proyecto proyectos : proyectoService.findByExample(proyecto)) {
             for (CasoUso casos : proyectos.getCaso_usos()) {
                 casos.setTests(null);
             }

@@ -10,5 +10,5 @@ public interface ProyectoService {
     public void save (Proyecto proyecto);
     public void deleteById(int id);
     public List<Proyecto> findByNombre(String nombre);
-    public List<Proyecto> findByProyecto(Proyecto proyecto);
+    public List<Proyecto> findByExample(Proyecto proyecto);
 }

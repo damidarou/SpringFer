@@ -50,7 +50,7 @@ public class ProyectoServiceImpl implements ProyectoService{
     }
 
     @Override
-    public List<Proyecto> findByProyecto(Proyecto proyecto) {
+    public List<Proyecto> findByExample(Proyecto proyecto) {
         proyecto.setVersion_proyecto(1.0);
         Example<Proyecto> proyectoExample= Example.of(proyecto);
         List<Proyecto> proyectos = proyectoRepository.findAll(proyectoExample);
