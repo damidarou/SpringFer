@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 //Indiciamos que es un controlador rest
 @RestController
@@ -42,13 +43,13 @@ public class UserRestController {
     /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url + el id de un usuario
     http://127.0.0.1:8080/api/users/1*/
     @GetMapping("/users/{userId}")
-    public User getUser(@PathVariable int userId){
-        User user = userService.findById(userId);
+    public Optional<User> getUser(@PathVariable int userId){
+        Optional<User> user = userService.findById(userId);
 
         if(user == null) {
             throw new RuntimeException("User id not found -"+userId);
         }
-        for (Proyecto proyecto:user.getProyectos()) {
+        for (Proyecto proyecto:user.get().getProyectos()) {
             proyecto.setCaso_usos(null);
         }
         return user;
@@ -97,7 +98,7 @@ public class UserRestController {
     @DeleteMapping("users/{userId}")
     public String deteteUser(@PathVariable int userId) {
 
-        User user = userService.findById(userId);
+        Optional<User> user = userService.findById(userId);
 
         if(user == null) {
             throw new RuntimeException("User id not found -"+userId);

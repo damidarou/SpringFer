@@ -37,12 +37,12 @@ public class CasoUso {
     @Column(name="cod_usuario")
     private Integer cod_usuario;
 
-    @OneToMany(mappedBy = "caso_uso")
+    @OneToMany(mappedBy = "caso_uso", fetch = FetchType.LAZY)
     @JsonIgnoreProperties("caso_uso")
     private List<Test> tests;
 
 
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cod_proyecto", referencedColumnName = "cod_proyecto", insertable=false, updatable=false)
     @JsonIgnoreProperties("caso_usos")
     private Proyecto proyecto;

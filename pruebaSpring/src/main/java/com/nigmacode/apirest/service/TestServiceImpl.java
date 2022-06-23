@@ -1,52 +1,55 @@
 package com.nigmacode.apirest.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
-import com.nigmacode.apirest.dao.TestDAO;
+import com.nigmacode.apirest.repository.TestRepository;
 import com.nigmacode.apirest.entity.Test;
 
 @Service
 public class TestServiceImpl implements TestService{
 
     @Autowired
-    private TestDAO TestDAO;
+    private TestRepository testRepository;
 
     @Override
     public List<Test> findAll() {
-        List<Test> listUsers= TestDAO.findAll();
+        List<Test> listUsers= testRepository.findAll();
         return listUsers;
     }
 
     @Override
-    public Test findById(int cod_test) {
-        Test test = TestDAO.findById(cod_test);
+    public Optional<Test> findById(int cod_test) {
+        Optional<Test> test = testRepository.findById(cod_test);
         return test;
     }
 
     @Override
-    public Test findByName(String nombre) {
-        Test test = TestDAO.findByName(nombre);
+    public Test findByNombre(String nombre) {
+        Test test = testRepository.findByNombre(nombre);
         return test;
     }
 
     @Override
     public List<Test> findByParameters(Test test) {
-        List<Test> listUsers = TestDAO.findByParameters(test);
-        return listUsers;
+        Example<Test> testExample= Example.of(test);
+        List<Test> tests = testRepository.findAll(testExample);
+        return tests;
     }
 
     @Override
     public void save(Test test) {
-        TestDAO.save(test);
+        testRepository.save(test);
     }
 
     @Override
 
     public void deleteById(int cod_test) {
-        TestDAO.deleteById(cod_test);
+        testRepository.deleteById(cod_test);
     }
 
 

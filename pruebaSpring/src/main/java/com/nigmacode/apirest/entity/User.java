@@ -28,10 +28,8 @@ public class User {
     @Column(name="apellido1")
     private String apellido1;
 
-
     @Column(name="apellido2")
     private String apellido2;
-
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_perfil", referencedColumnName = "id_perfil",insertable = false,updatable = false)

@@ -72,7 +72,7 @@ public class CasoUsoRestController {
     @PostMapping("/caso")
     public CasoUso addUserCasoUso(@RequestBody CasoUso caso){
         caso.setCod_caso_uso(0);
-        User us = userService.findById(caso.getCod_usuario());
+        Optional<User> us = userService.findById(caso.getCod_usuario());
         Optional<Proyecto> ps = proyectoService.findById(caso.getId_proyecto());
         if(us == null){
             throw new RuntimeException("El usuario "+caso.getCod_usuario()+" no existe");

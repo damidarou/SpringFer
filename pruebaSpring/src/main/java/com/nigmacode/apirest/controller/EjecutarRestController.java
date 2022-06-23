@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class EjecutarRestController {
 
@@ -70,8 +71,8 @@ public class EjecutarRestController {
         ejecutar.setCod_ejecuta(0);
 
         //Este metodo guardará la ejecución
-        User us = userService.findById(ejecutar.getId_user());
-        Test ts = testService.findById(ejecutar.getId_test());
+        Optional<User> us = userService.findById(ejecutar.getId_user());
+        Optional<Test> ts = testService.findById(ejecutar.getId_test());
         if(us == null){
             throw new RuntimeException("El usuario "+ejecutar.getId_user()+" no existe");
         } else if (ts == null) {

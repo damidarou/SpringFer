@@ -91,7 +91,7 @@ public class ProyectoRestController {
     @PostMapping("/proyecto")
     public Proyecto postProyecto(@RequestBody Proyecto proyecto) {
 //El usuario debe existir para que se pueda crear el proyecto
-        User us = userService.findById(proyecto.getCod_usuario());
+      Optional<User> us = userService.findById(proyecto.getCod_usuario());
         if (us == null) {
             throw new RuntimeException("El usuario " + proyecto.getCod_usuario() + " no existe");
         } else {

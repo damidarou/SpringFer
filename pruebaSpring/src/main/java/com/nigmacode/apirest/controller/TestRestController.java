@@ -56,7 +56,7 @@ public class TestRestController {
         http://127.0.0.1:8080/api/test/nombre1 para obtener un test concreto mediante el nombre*/
     @GetMapping("/test/{nombre}")
     public Test getTest(@PathVariable String nombre){
-        Test user = testService.findByName(nombre);
+        Test user = testService.findByNombre(nombre);
 
         if(user == null) {
             throw new RuntimeException("Test name not found -"+nombre);
@@ -66,14 +66,14 @@ public class TestRestController {
     /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url + el id de una ejecucion
             http://127.0.0.1:8080/api/test/ID/1 para obtener un test concreto mediante el ID*/
     @GetMapping("/test/ID/{userId}")
-    public Test getUser(@PathVariable int userId){
-        Test user = testService.findById(userId);
+    public Optional<Test> getUser(@PathVariable int userId){
+        Optional<Test> test = testService.findById(userId);
 
-        if(user == null) {
+        if(test == null) {
             throw new RuntimeException("Test id not found -"+userId);
         }
         else {
-            return user;
+            return test;
         }
     }
 
@@ -86,7 +86,7 @@ public class TestRestController {
 /*Para crear un nuevo test, no debe incumplir ninguna restricción como la de la clave foránea.
 El test no puede hacer referencia a un usuario o a un caso de uso que no exista.
 */
-        User us = userService.findById(test.getCod_usuario());
+        Optional<User> us = userService.findById(test.getCod_usuario());
         Optional<CasoUso> cs = casoService.findById(test.getId_caso_uso());
         if(us == null){
             throw new RuntimeException("El usuario "+test.getCod_usuario()+" no existe");
@@ -115,7 +115,7 @@ El test no puede hacer referencia a un usuario o a un caso de uso que no exista.
     @DeleteMapping("/test/{userId}")
     public String deleteTest(@PathVariable int userId) {
 
-        Test test = testService.findById(userId);
+        Optional<Test> test = testService.findById(userId);
 
         if(test == null) {
             throw new RuntimeException("Test id not found -"+userId);

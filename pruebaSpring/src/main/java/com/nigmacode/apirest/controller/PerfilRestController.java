@@ -16,7 +16,6 @@ public class PerfilRestController {
     @Autowired
     private PerfilService perfilservice;
 
-
     /*Este método se hará cuando por una petición GET (como indica la anotación) se llame a la url
    http://127.0.0.1:8080/api/perfil para que muestre todos los perfiles*/
     @GetMapping("/perfil")
